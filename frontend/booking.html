@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ocean View Resort - Book Your Stay">
+    <title>Book Your Stay - Ocean View Resort</title>
+    <link rel="stylesheet" href="css/customer-style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="customer-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" style="text-decoration: none; color: inherit;">
+                    <span>OCEAN VIEW RESORT</span>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="book.html#rooms">Rooms</a></li>
+                <li><a href="booking.html" class="active">Book Now</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="login.html" class="btn-staff">Staff Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Booking Section -->
+    <section class="booking-section" style="margin-top: 100px;">
+        <div class="container">
+            <h2 class="section-title">Request a Reservation</h2>
+            <p class="section-subtitle">Fill out the form below and our team will confirm your booking</p>
+            
+            <div class="booking-form-container">
+                <form id="bookingForm" class="booking-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="guestName">Full Name *</label>
+                            <input type="text" id="guestName" required placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" required placeholder="john@example.com">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="contactNumber">Phone Number *</label>
+                            <input type="tel" id="contactNumber" required placeholder="0771234567" pattern="[0-9]{10}">
+                            <small>10 digits only</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="numberOfGuests">Number of Guests *</label>
+                            <input type="number" id="numberOfGuests" required min="1" max="10" value="2">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Address *</label>
+                        <textarea id="address" required rows="2" placeholder="Your complete address"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="roomType">Room Type *</label>
+                            <select id="roomType" required>
+                                <option value="">Select Room Type</option>
+                                <option value="STANDARD">Standard - LKR 5,000/night</option>
+                                <option value="DELUXE">Deluxe - LKR 8,000/night</option>
+                                <option value="SUITE">Luxury Suite - LKR 12,000/night</option>
+                                <option value="FAMILY">Family Room - LKR 15,000/night</option>
+                                <option value="PRESIDENTIAL">Presidential Suite - LKR 25,000/night</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="checkInDate">Check-in Date *</label>
+                            <input type="date" id="checkInDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="checkOutDate">Check-out Date *</label>
+                            <input type="date" id="checkOutDate" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="specialRequests">Special Requests</label>
+                        <textarea id="specialRequests" rows="3" placeholder="Any special requirements? (Optional)"></textarea>
+                    </div>
+
+                    <div id="priceCalculation" class="price-calculation" style="display: none;">
+                        <h3>Price Breakdown</h3>
+                        <div class="price-details">
+                            <div class="price-row">
+                                <span>Price per night (per room):</span>
+                                <span id="pricePerNight">LKR 0</span>
+                            </div>
+                            <div class="price-row">
+                                <span>Number of guests:</span>
+                                <span id="guestCount">1</span>
+                            </div>
+                            <div class="price-row highlight">
+                                <span>Price per person per night:</span>
+                                <span id="pricePerPersonPerNight">LKR 0</span>
+                            </div>
+                            <div class="price-row">
+                                <span>Number of nights:</span>
+                                <span id="nightsCount">0</span>
+                            </div>
+                            <div class="price-row total">
+                                <span>Total Amount:</span>
+                                <span id="totalPrice">LKR 0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="errorMessage" class="error-message" style="display: none;"></div>
+                    <div id="successMessage" class="success-message" style="display: none;"></div>
+
+                    <button type="submit" class="btn-submit">Submit Reservation Request</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>OCEAN VIEW RESORT</h3>
+                    <p>Experience luxury by the ocean</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="book.html#rooms">Rooms</a></li>
+                        <li><a href="booking.html">Book Now</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="login.html">Staff Login</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <p>📞 +94 11 234 5678</p>
+                    <p>✉️ info@oceanviewresort.lk</p>
+                </div>
+            </div>
+            <p style="margin-top: 2rem;">&copy; 2026 Ocean View Resort. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/customer.js"></script>
+    <script>
+        // Get room type from URL parameter and pre-select it
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const roomType = urlParams.get('room');
+            
+            if (roomType) {
+                const roomSelect = document.getElementById('roomType');
+                roomSelect.value = roomType;
+                
+                // Trigger price calculation if room is pre-selected
+                if (typeof calculatePrice === 'function') {
+                    calculatePrice();
+                }
+                
+                // Scroll to form
+                document.querySelector('.booking-form-container').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    </script>
+
+    <!-- Dark Mode Toggle -->
+    <button id="darkModeToggle" class="dark-mode-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+</body>
+</html>

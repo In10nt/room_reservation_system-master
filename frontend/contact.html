@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ocean View Resort - Contact Us">
+    <title>Contact Us - Ocean View Resort</title>
+    <link rel="stylesheet" href="css/customer-style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="customer-nav">
+        <div class="nav-container">
+            <button class="back-btn" onclick="window.history.back()" aria-label="Go back">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <div class="nav-logo">
+                <a href="index.html" style="text-decoration: none; color: inherit;">
+                    <span>OCEAN VIEW RESORT</span>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="book.html#rooms">Rooms</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="booking.html">Book Now</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-header">
+                <span>Menu</span>
+                <button class="mobile-menu-close" onclick="toggleMobileMenu()" aria-label="Close menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <ul class="mobile-menu-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="book.html#rooms">Rooms</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="booking.html">Book Now</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </div>
+        <div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="toggleMobileMenu()"></div>
+    </nav>
+
+    <!-- Contact Section -->
+    <section class="contact-section" style="margin-top: 100px; min-height: 70vh;">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="section-subtitle">We're here to help and answer any questions you might have</p>
+            
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <h3>Visit Us</h3>
+                    <p>123 Beach Road<br>Colombo, Sri Lanka</p>
+                    <a href="https://maps.google.com" target="_blank" class="contact-link">Get Directions</a>
+                </div>
+                <div class="contact-card">
+                    <h3>Call Us</h3>
+                    <p><a href="tel:+94112345678" class="contact-link-inline">+94 11 234 5678</a><br>
+                    <a href="tel:+94771234567" class="contact-link-inline">+94 77 123 4567</a></p>
+                    <a href="https://wa.me/94771234567" target="_blank" class="contact-link whatsapp-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                        </svg>
+                        WhatsApp Us
+                    </a>
+                </div>
+                <div class="contact-card">
+                    <h3>Email Us</h3>
+                    <p><a href="mailto:info@oceanviewresort.lk" class="contact-link-inline">info@oceanviewresort.lk</a><br>
+                    <a href="mailto:reservations@oceanviewresort.lk" class="contact-link-inline">reservations@oceanviewresort.lk</a></p>
+                </div>
+            </div>
+
+            <!-- Social Media & Communication -->
+            <div class="social-section" style="margin-top: 4rem; text-align: center;">
+                <h3 style="font-size: 1.8rem; color: #0a4d68; margin-bottom: 2rem;">Connect With Us</h3>
+                <div class="social-links">
+                    <a href="https://facebook.com" target="_blank" class="social-btn facebook" aria-label="Facebook">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </a>
+                    <a href="https://instagram.com" target="_blank" class="social-btn instagram" aria-label="Instagram">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                    <a href="https://twitter.com" target="_blank" class="social-btn twitter" aria-label="Twitter">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </a>
+                    <a href="https://wa.me/94771234567" target="_blank" class="social-btn whatsapp" aria-label="WhatsApp">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                        </svg>
+                    </a>
+                    <a href="viber://chat?number=94771234567" class="social-btn viber" aria-label="Viber">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M11.4 0C9.473.028 5.333.344 3.02 2.467 1.302 4.187.696 6.7.633 9.817.57 12.933.488 18.776 6.12 20.36h.003l-.004 2.644s-.037.977.61 1.177c.777.242 1.234-.5 1.98-1.302.407-.44.972-1.084 1.397-1.58 3.85.323 6.812-.417 7.15-.526.776-.253 5.176-.816 5.892-6.657.74-6.02-.36-9.83-2.34-11.546-.596-.55-3.006-2.3-8.375-2.387 0 0-.395-.025-1.029-.017zm.058 1.693c.545-.004.88.017.88.017 4.542.07 6.523 1.433 7.023 1.917 1.67 1.453 2.568 4.73 1.918 9.955-.586 4.74-3.98 5.07-4.645 5.297-.285.097-2.895.753-6.218.48 0 0-2.462 2.977-3.23 3.744-.12.12-.26.167-.352.145-.13-.03-.166-.18-.165-.4l.02-4.385c-4.846-1.29-4.565-6.32-4.514-8.86.052-2.535.578-4.66 1.99-6.025 1.96-1.855 5.523-2.11 7.293-2.085zm.23 2.022a.337.337 0 00-.113.02.334.334 0 00-.196.49c.03.047 2.87 4.73 2.87 4.73.107.17.334.222.505.116a.336.336 0 00.116-.504s-2.87-4.73-2.87-4.73a.334.334 0 00-.312-.122zm-3.867.156a.335.335 0 00-.282.155s-1.99 2.675-1.99 2.675a.336.336 0 00.062.47.334.334 0 00.47-.062s1.99-2.675 1.99-2.675a.335.335 0 00-.25-.563zm7.98.338a.336.336 0 00-.303.457l1.083 3.502a.336.336 0 00.64-.198l-1.083-3.502a.336.336 0 00-.337-.26zm-11.99.865a.334.334 0 00-.198.598l3.088 2.212a.335.335 0 10.39-.545L3.91 5.127a.334.334 0 00-.192-.06zm15.882.39a.334.334 0 00-.18.05l-3.502 2.212a.335.335 0 10.355.563l3.502-2.212a.335.335 0 00-.175-.614zM7.48 7.31a.334.334 0 00-.19.057L4.2 9.58a.335.335 0 10.39.545l3.088-2.212a.334.334 0 00-.198-.598zm9.288.04a.334.334 0 00-.192.06l-3.088 2.212a.335.335 0 10.39.545l3.088-2.212a.334.334 0 00-.198-.598zM11.65 8.68c-.906.008-1.638.75-1.63 1.656.007.906.75 1.638 1.656 1.63.906-.007 1.638-.75 1.63-1.656-.007-.906-.75-1.638-1.656-1.63zm-5.035.542a.335.335 0 00-.303.457l1.083 3.502a.336.336 0 00.64-.198L6.952 9.48a.336.336 0 00-.337-.26zm10.11.168a.336.336 0 00-.337.26l-1.083 3.502a.336.336 0 00.64.198l1.083-3.502a.336.336 0 00-.303-.457zm-12.632.81a.334.334 0 00-.18.05l-1.99 1.26a.335.335 0 10.355.563l1.99-1.26a.335.335 0 00-.175-.614zm15.142.04a.335.335 0 00-.175.614l1.99 1.26a.335.335 0 10.355-.563l-1.99-1.26a.334.334 0 00-.18-.05z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>OCEAN VIEW RESORT</h3>
+                    <p>Experience luxury by the ocean</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="book.html#rooms">Rooms</a></li>
+                        <li><a href="booking.html">Book Now</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <p>+94 11 234 5678</p>
+                    <p>info@oceanviewresort.lk</p>
+                </div>
+            </div>
+            <p style="margin-top: 2rem;">&copy; 2026 Ocean View Resort. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/customer.js"></script>
+
+    <!-- Dark Mode Toggle -->
+    <button id="darkModeToggle" class="dark-mode-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Ocean View Resort</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-box">
+            <div class="logo">
+                <a href="index.html" style="text-decoration: none; color: inherit; cursor: pointer;">
+                    <h1>🏖️ Ocean View Resort</h1>
+                </a>
+                <p>Reservation Management System</p>
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="role">Select Role</label>
+                    <select id="role" name="role" required>
+                        <option value="">-- Select Your Role --</option>
+                        <option value="ADMIN">Admin</option>
+                        <option value="RECEPTIONIST">Receptionist</option>
+                        <option value="MANAGER">Manager</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required placeholder="Enter username" pattern="[^\s]+" title="Spaces are not allowed">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required placeholder="Enter password" pattern="[^\s]+" title="Spaces are not allowed">
+                </div>
+                
+                <div id="errorMessage" class="error-message" style="display: none;"></div>
+                
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
+            </form>
+            
+            <div class="login-help">
+                <p><strong>Default Accounts:</strong></p>
+                <p>Admin: admin / admin123</p>
+                <p>Receptionist: receptionist / recep123</p>
+                <p>Manager: manager / manager123</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Dark Mode Toggle -->
+    <button id="darkModeToggle" class="dark-mode-toggle-admin" onclick="toggleDarkMode()" aria-label="Toggle dark mode">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+    
+    <script src="js/dark-mode.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>

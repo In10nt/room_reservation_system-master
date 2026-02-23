@@ -1,0 +1,54 @@
+# IDE and Editor files
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+
+# Backend compiled files
+backend/target/
+backend/out/
+backend/*.class
+backend/*.log
+
+# Frontend node modules (if any)
+frontend/node_modules/
+frontend/package-lock.json
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.bak
+*~.nib
+
+# Database files
+*.db
+*.sqlite
+
+# Environment files (if any)
+.env
+.env.local
+.env.production
+
+# Build files
+dist/
+build/
+
+# Configuration files with sensitive data (create local copies)
+application-local.properties
+application-prod.properties
+
+# Personal configuration backups
+*.backup
+config.local.*

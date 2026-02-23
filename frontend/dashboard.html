@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Ocean View Resort</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Ocean View Resort</span>
+        </div>
+        <div class="nav-user">
+            <div class="user-avatar">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+            <span id="userInfo"></span>
+            <button onclick="logout()" class="btn btn-secondary">Logout</button>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="sidebar">
+            <ul class="menu">
+                <li>
+                    <a href="dashboard.html" class="active">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="add-reservation.html">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        <span>New Reservation</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="view-reservations.html">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                        <span>View Reservations</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="search-reservation.html">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                        <span>Search</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="reports.html">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="20" x2="18" y2="10"></line>
+                            <line x1="12" y1="20" x2="12" y2="4"></line>
+                            <line x1="6" y1="20" x2="6" y2="14"></line>
+                        </svg>
+                        <span>Reports</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="help.html">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                        <span>Help</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="main-content">
+            <div class="dashboard-header">
+                <div>
+                    <h1>Dashboard Overview</h1>
+                    <p class="dashboard-subtitle">Welcome back! Here's what's happening today.</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-outline" onclick="window.location.reload()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23 4 23 10 17 10"></polyline>
+                            <polyline points="1 20 1 14 7 14"></polyline>
+                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                        </svg>
+                        Refresh
+                    </button>
+                </div>
+            </div>
+            
+            <div class="stats-grid-modern">
+                <div class="stat-card-modern stat-primary">
+                    <div class="stat-card-header">
+                        <div class="stat-icon-modern">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                        </div>
+                        <span class="stat-trend stat-up">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                                <polyline points="17 6 23 6 23 12"></polyline>
+                            </svg>
+                            12%
+                        </span>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="totalReservations">0</h3>
+                        <p>Total Reservations</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card-modern stat-success">
+                    <div class="stat-card-header">
+                        <div class="stat-icon-modern">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <span class="stat-trend stat-up">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                                <polyline points="17 6 23 6 23 12"></polyline>
+                            </svg>
+                            8%
+                        </span>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="confirmedReservations">0</h3>
+                        <p>Confirmed</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card-modern stat-info">
+                    <div class="stat-card-header">
+                        <div class="stat-icon-modern">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                            </svg>
+                        </div>
+                        <span class="stat-trend stat-up">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                                <polyline points="17 6 23 6 23 12"></polyline>
+                            </svg>
+                            5%
+                        </span>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="checkedInReservations">0</h3>
+                        <p>Checked In</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card-modern stat-warning">
+                    <div class="stat-card-header">
+                        <div class="stat-icon-modern">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="1" x2="12" y2="23"></line>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                            </svg>
+                        </div>
+                        <span class="stat-trend stat-up">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                                <polyline points="17 6 23 6 23 12"></polyline>
+                            </svg>
+                            15%
+                        </span>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="totalRevenue">LKR 0</h3>
+                        <p>Total Revenue</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dashboard-card room-types-card-full">
+                <div class="card-header">
+                    <h2>Room Types & Rates</h2>
+                    <p>Current pricing information</p>
+                </div>
+                <div class="room-types-modern">
+                    <div class="room-type-item">
+                        <div class="room-type-icon">
+                            <img src="images/image1.jpg" alt="Standard Room">
+                        </div>
+                        <div class="room-type-info">
+                            <h4>Standard</h4>
+                            <p>Basic amenities</p>
+                        </div>
+                        <div class="room-type-price">
+                            <span class="price">LKR 5,000</span>
+                            <span class="period">/night</span>
+                        </div>
+                    </div>
+                    <div class="room-type-item">
+                        <div class="room-type-icon">
+                            <img src="images/image2.jpg" alt="Deluxe Room">
+                        </div>
+                        <div class="room-type-info">
+                            <h4>Deluxe</h4>
+                            <p>Ocean view</p>
+                        </div>
+                        <div class="room-type-price">
+                            <span class="price">LKR 8,000</span>
+                            <span class="period">/night</span>
+                        </div>
+                    </div>
+                    <div class="room-type-item">
+                        <div class="room-type-icon">
+                            <img src="images/image3.jpg" alt="Suite">
+                        </div>
+                        <div class="room-type-info">
+                            <h4>Suite</h4>
+                            <p>Premium amenities</p>
+                        </div>
+                        <div class="room-type-price">
+                            <span class="price">LKR 12,000</span>
+                            <span class="period">/night</span>
+                        </div>
+                    </div>
+                    <div class="room-type-item">
+                        <div class="room-type-icon">
+                            <img src="images/image5.jpg" alt="Family Room">
+                        </div>
+                        <div class="room-type-info">
+                            <h4>Family</h4>
+                            <p>Multiple beds</p>
+                        </div>
+                        <div class="room-type-price">
+                            <span class="price">LKR 15,000</span>
+                            <span class="period">/night</span>
+                        </div>
+                    </div>
+                    <div class="room-type-item">
+                        <div class="room-type-icon">
+                            <img src="images/image6.jpg" alt="Presidential Suite">
+                        </div>
+                        <div class="room-type-info">
+                            <h4>Presidential</h4>
+                            <p>Exclusive services</p>
+                        </div>
+                        <div class="room-type-price">
+                            <span class="price">LKR 25,000</span>
+                            <span class="period">/night</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/common.js"></script>
+    <script src="js/dashboard.js"></script>
+    
+    <!-- Dark Mode Toggle -->
+    <button id="darkModeToggle" class="dark-mode-toggle-admin" onclick="toggleDarkMode()" aria-label="Toggle dark mode">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+    <script src="js/dark-mode.js"></script>
+</body>
+</html>

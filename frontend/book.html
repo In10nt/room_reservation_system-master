@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ocean View Resort - Book Your Stay">
+    <title>Book Your Stay - Ocean View Resort</title>
+    <link rel="stylesheet" href="css/customer-style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="customer-nav">
+        <div class="nav-container">
+            <button class="back-btn" onclick="window.history.back()" aria-label="Go back">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <div class="nav-logo">
+                <a href="index.html" style="text-decoration: none; color: inherit;">
+                    <span>OCEAN VIEW RESORT</span>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#rooms" class="active">Rooms</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="booking.html">Book Now</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="login.html" class="btn-staff">Staff Login</a>
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-header">
+                <span>Menu</span>
+                <button class="mobile-menu-close" onclick="toggleMobileMenu()" aria-label="Close menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <ul class="mobile-menu-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="book.html#rooms" class="active">Rooms</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="booking.html">Book Now</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-footer">
+                <a href="login.html" class="btn-staff-mobile">Staff Login</a>
+            </div>
+        </div>
+        <div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="toggleMobileMenu()"></div>
+    </nav>
+
+    <!-- Hero Carousel Section -->
+    <section id="home" class="hero-carousel-section">
+        <div class="carousel-container">
+            <div class="carousel-slides">
+                <div class="carousel-slide active">
+                    <img src="images/image1.jpg" alt="Ocean View Resort - Luxury Beachfront">
+                    <div class="carousel-overlay">
+                        <h1 class="carousel-title">Welcome to Paradise</h1>
+                        <p class="carousel-subtitle">Experience luxury beachfront living at Ocean View Resort</p>
+                        <a href="#booking" class="btn-hero">Book Your Stay</a>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="images/image2.jpg" alt="Ocean View Resort - Premium Rooms">
+                    <div class="carousel-overlay">
+                        <h1 class="carousel-title">Luxury Redefined</h1>
+                        <p class="carousel-subtitle">Indulge in world-class comfort and breathtaking ocean views</p>
+                        <a href="#rooms" class="btn-hero">Explore Rooms</a>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="images/image3.jpg" alt="Ocean View Resort - Exclusive Experience">
+                    <div class="carousel-overlay">
+                        <h1 class="carousel-title">Your Dream Escape</h1>
+                        <p class="carousel-subtitle">Create unforgettable memories in our tropical paradise</p>
+                        <a href="#booking" class="btn-hero">Reserve Now</a>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="images/image5.jpg" alt="Ocean View Resort - Perfect Getaway">
+                    <div class="carousel-overlay">
+                        <h1 class="carousel-title">Unwind in Style</h1>
+                        <p class="carousel-subtitle">Where luxury meets tranquility by the ocean</p>
+                        <a href="#rooms" class="btn-hero">Discover More</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carousel Controls -->
+            <button class="carousel-control prev" onclick="changeSlide(-1)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <button class="carousel-control next" onclick="changeSlide(1)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+
+            <!-- Carousel Indicators -->
+            <div class="carousel-indicators">
+                <span class="indicator active" onclick="goToSlide(0)"></span>
+                <span class="indicator" onclick="goToSlide(1)"></span>
+                <span class="indicator" onclick="goToSlide(2)"></span>
+                <span class="indicator" onclick="goToSlide(3)"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="container">
+            <h2 class="section-title">Experience Ocean View Resort</h2>
+            <p class="section-subtitle">Discover the beauty and luxury that awaits you</p>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="images/seaimage1.jpg" alt="Night View Resort">
+                    <div class="gallery-overlay">
+                        <h3>Evening Elegance</h3>
+                        <p>Experience magical nights by the ocean</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/seaimage2.jpg" alt="Sunset Views">
+                    <div class="gallery-overlay">
+                        <h3>Stunning Sunsets</h3>
+                        <p>Breathtaking twilight moments</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/seaimage3.jpg" alt="Night Ambiance">
+                    <div class="gallery-overlay">
+                        <h3>Night Ambiance</h3>
+                        <p>Romantic evening atmosphere</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/seaimage4.jpg" alt="Twilight Paradise">
+                    <div class="gallery-overlay">
+                        <h3>Twilight Paradise</h3>
+                        <p>Serene evening beauty</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/seaimage8.jpg" alt="Ocean Paradise">
+                    <div class="gallery-overlay">
+                        <h3>Ocean Paradise</h3>
+                        <p>Your perfect escape awaits</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/seaimage9.jpg" alt="Coastal Beauty">
+                    <div class="gallery-overlay">
+                        <h3>Coastal Beauty</h3>
+                        <p>Discover pristine shores</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Showcase Section -->
+    <section class="features-showcase">
+        <div class="container">
+            <h2 class="section-title">Why Choose Ocean View Resort</h2>
+            <p class="section-subtitle">Discover what makes us the perfect destination for your getaway</p>
+            
+            <div class="features-showcase-grid">
+                <div class="feature-showcase-card">
+                    <div class="feature-showcase-image">
+                        <img src="images/seaimage5.jpg" alt="Beachfront Paradise">
+                    </div>
+                    <div class="feature-showcase-content">
+                        <h3>Beachfront Paradise</h3>
+                        <p>Direct access to pristine white sand beaches with crystal clear waters. Wake up to the sound of waves and enjoy stunning sunsets from your room.</p>
+                    </div>
+                </div>
+
+                <div class="feature-showcase-card reverse">
+                    <div class="feature-showcase-content">
+                        <h3>Ocean Activities</h3>
+                        <p>Experience thrilling water sports, snorkeling, diving, and boat tours. Our resort offers endless adventures for water enthusiasts.</p>
+                    </div>
+                    <div class="feature-showcase-image">
+                        <img src="images/seaimage6.jpg" alt="Ocean Activities">
+                    </div>
+                </div>
+
+                <div class="feature-showcase-card">
+                    <div class="feature-showcase-image">
+                        <img src="images/seaimage7.jpg" alt="Luxury Relaxation">
+                    </div>
+                    <div class="feature-showcase-content">
+                        <h3>Ultimate Relaxation</h3>
+                        <p>Indulge in our world-class spa, infinity pools, and private cabanas. Every moment is designed for your comfort and rejuvenation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rooms Section -->
+    <section id="rooms" class="rooms-section">
+        <div class="container">
+            <h2 class="section-title">Our Rooms</h2>
+            <p class="section-subtitle">Choose from our selection of luxury accommodations</p>
+            
+            <div class="rooms-carousel-container">
+                <button class="rooms-nav-btn prev" onclick="scrollRooms(-1)">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                
+                <div class="rooms-carousel" id="roomsCarousel">
+                    <!-- Standard Room -->
+                    <div class="room-card">
+                        <div class="room-image" style="background-image: url('images/image1.jpg')"></div>
+                        <div class="room-content">
+                            <h3>Standard Room</h3>
+                            <p class="room-price">LKR 5,000 <span>/ night</span></p>
+                            <ul class="room-features">
+                                <li>Queen Size Bed</li>
+                                <li>Private Bathroom</li>
+                                <li>LED TV</li>
+                                <li>Air Conditioning</li>
+                                <li>Free WiFi</li>
+                            </ul>
+                            <button class="btn-book" onclick="selectRoom('STANDARD')">Select Room</button>
+                        </div>
+                    </div>
+
+                    <!-- Deluxe Room -->
+                    <div class="room-card featured">
+                        <div class="featured-badge">Popular</div>
+                        <div class="room-image" style="background-image: url('images/image2.jpg')"></div>
+                        <div class="room-content">
+                            <h3>Deluxe Room</h3>
+                            <p class="room-price">LKR 8,000 <span>/ night</span></p>
+                            <ul class="room-features">
+                                <li>Ocean View</li>
+                                <li>King Size Bed</li>
+                                <li>Luxury Bathroom</li>
+                                <li>Smart TV</li>
+                                <li>Mini Bar</li>
+                                <li>Balcony</li>
+                            </ul>
+                            <button class="btn-book" onclick="selectRoom('DELUXE')">Select Room</button>
+                        </div>
+                    </div>
+
+                    <!-- Suite -->
+                    <div class="room-card">
+                        <div class="room-image" style="background-image: url('images/image3.jpg')"></div>
+                        <div class="room-content">
+                            <h3>Luxury Suite</h3>
+                            <p class="room-price">LKR 12,000 <span>/ night</span></p>
+                            <ul class="room-features">
+                                <li>Panoramic Ocean View</li>
+                                <li>King Bed + Sofa Bed</li>
+                                <li>Jacuzzi</li>
+                                <li>Dining Area</li>
+                                <li>Coffee Machine</li>
+                                <li>Private Terrace</li>
+                            </ul>
+                            <button class="btn-book" onclick="selectRoom('SUITE')">Select Room</button>
+                        </div>
+                    </div>
+
+                    <!-- Family Room -->
+                    <div class="room-card">
+                        <div class="room-image" style="background-image: url('images/image5.jpg')"></div>
+                        <div class="room-content">
+                            <h3>Family Room</h3>
+                            <p class="room-price">LKR 15,000 <span>/ night</span></p>
+                            <ul class="room-features">
+                                <li>Sleeps 4-6 Guests</li>
+                                <li>2 Bedrooms</li>
+                                <li>2 Bathrooms</li>
+                                <li>Kitchenette</li>
+                                <li>Entertainment Area</li>
+                                <li>Large Balcony</li>
+                            </ul>
+                            <button class="btn-book" onclick="selectRoom('FAMILY')">Select Room</button>
+                        </div>
+                    </div>
+
+                    <!-- Presidential Suite -->
+                    <div class="room-card premium">
+                        <div class="featured-badge premium-badge">Premium</div>
+                        <div class="room-image" style="background-image: url('images/image6.jpg')"></div>
+                        <div class="room-content">
+                            <h3>Presidential Suite</h3>
+                            <p class="room-price">LKR 25,000 <span>/ night</span></p>
+                            <ul class="room-features">
+                                <li>Ultimate Luxury</li>
+                                <li>3 Bedrooms</li>
+                                <li>3 Bathrooms + Spa</li>
+                                <li>Full Kitchen</li>
+                                <li>Private Cinema</li>
+                                <li>Private Pool</li>
+                                <li>Butler Service</li>
+                            </ul>
+                            <button class="btn-book" onclick="selectRoom('PRESIDENTIAL')">Select Room</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="rooms-nav-btn next" onclick="scrollRooms(1)">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>OCEAN VIEW RESORT</h3>
+                    <p>Experience luxury by the ocean</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="book.html#rooms">Rooms</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="booking.html">Book Now</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <p>📞 +94 11 234 5678</p>
+                    <p>✉️ info@oceanviewresort.lk</p>
+                </div>
+            </div>
+            <p style="margin-top: 2rem;">&copy; 2026 Ocean View Resort. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="scroll-to-top" onclick="scrollToTop()" style="display: none;">
+        🔝
+    </button>
+
+    <!-- Dark Mode Toggle -->
+    <button id="darkModeToggle" class="dark-mode-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+
+    <script src="js/customer.js"></script>
+    <script>
+        // Scroll to top functionality
+        window.onscroll = function() {
+            const scrollBtn = document.getElementById('scrollToTop');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                scrollBtn.style.display = 'block';
+            } else {
+                scrollBtn.style.display = 'none';
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
