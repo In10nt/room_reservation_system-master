@@ -1,0 +1,181 @@
+@startuml Ocean View Resort - Sequence Diagrams
+
+' Login Sequence
+title User Login Sequence
+
+actor User
+participant "Frontend" as FE
+participant "AuthController" as AC
+participant "AuthenticationManager" as AM
+participant "CustomUserDetailsService" as CUDS
+participant "UserService" as US
+participant "JwtUtil" as JWT
+database "Database" as DB
+
+User -> FE: Enter credentials
+FE -> AC: POST /api/auth/login
+AC -> AM: authenticate(username, password)
+AM -> CUDS: loadUserByUsername(username)
+CUDS -> US: findByUsername(username)
+US -> DB: SELECT user
+DB --> US: User data
+US --> CUDS: User
+CUDS --> AM: UserDetails
+AM --> AC: Authentication
+AC -> JWT: generateToken(userDetails)
+JWT --> AC: JWT Token
+AC --> FE: LoginResponse (token, username, role)
+FE --> User: Login successful
+
+@enduml
+
+@startuml Create Reservation Sequence
+
+title Create Reservation Sequence
+
+actor Staff
+participant "Frontend" as FE
+participant "ReservationController" as RC
+participant "ReservationService" as RS
+participant "ReservationRepository" as RR
+database "Database" as DB
+
+Staff -> FE: Fill reservation form
+FE -> RC: POST /api/reservations\n(with JWT token)
+RC -> RS: createReservation(request)
+RS -> RS: validateReservationDates()
+RS -> RS: checkRoomAvailability()
+RS -> RS: mapToEntity(request)
+RS -> RR: save(reservation)
+RR -> DB: INSERT reservation
+DB --> RR: Saved reservation
+RR --> RS: Reservation
+RS -> RS: mapToResponse(reservation)
+RS --> RC: ReservationResponse
+RC --> FE: ApiResponse<ReservationResponse>
+FE --> Staff: Reservation created successfully
+
+@enduml
+
+@startuml Check-out and Bill Generation Sequence
+
+title Check-out and Bill Generation Sequence
+
+actor Staff
+participant "Frontend" as FE
+participant "ReservationController" as RC
+participant "ReservationService" as RS
+participant "ReservationRepository" as RR
+participant "EmailService" as ES
+database "Database" as DB
+
+Staff -> FE: Click "Check Out"
+FE -> RC: PUT /api/reservations/{id}/status?status=CHECKED_OUT
+RC -> RS: updateReservationStatus(id, CHECKED_OUT)
+RS -> RR: findByReservationNumber(id)
+RR -> DB: SELECT reservation
+DB --> RR: Reservation
+RR --> RS: Reservation
+RS -> RS: setStatus(CHECKED_OUT)
+RS -> RR: save(reservation)
+RR -> DB: UPDATE reservation
+DB --> RR: Updated reservation
+RR --> RS: Reservation
+RS --> RC: ReservationResponse
+RC --> FE: ApiResponse<ReservationResponse>
+FE -> FE: showBillOptions(reservation)
+FE --> Staff: Display bill modal
+
+alt Email Bill
+    Staff -> FE: Click "Email to Guest"
+    FE -> FE: emailBill(email, reservationNumber)
+    FE -> FE: Prepare template parameters
+    FE -> ES: EmailJS.send(serviceId, templateId, params)
+    ES --> FE: Email sent successfully
+    FE --> Staff: "Bill sent to email"
+end
+
+alt Print Bill
+    Staff -> FE: Click "Print Bill"
+    FE -> FE: printBill()
+    FE --> Staff: Open print dialog
+end
+
+@enduml
+
+@startuml Search Reservation Sequence
+
+title Search Reservation Sequence
+
+actor Staff
+participant "Frontend" as FE
+participant "ReservationController" as RC
+participant "ReservationService" as RS
+participant "ReservationRepository" as RR
+database "Database" as DB
+
+Staff -> FE: Enter guest name
+FE -> RC: GET /api/reservations/search?name={name}
+RC -> RS: searchByGuestName(name)
+RS -> RR: findByGuestNameContainingIgnoreCase(name)
+RR -> DB: SELECT * WHERE guest_name LIKE '%name%'
+DB --> RR: List<Reservation>
+RR --> RS: List<Reservation>
+RS -> RS: mapToResponse(reservations)
+RS --> RC: List<ReservationResponse>
+RC --> FE: ApiResponse<List<ReservationResponse>>
+FE --> Staff: Display search results
+
+@enduml
+
+@startuml Complete Reservation Workflow
+
+title Complete Reservation Workflow
+
+actor Guest
+actor Staff
+participant "Frontend" as FE
+participant "Backend API" as API
+database "Database" as DB
+
+== Booking ==
+Guest -> FE: Browse rooms
+Guest -> FE: Fill booking form
+FE -> API: POST /api/reservations/public
+API -> DB: Create reservation (CONFIRMED)
+DB --> API: Reservation created
+API --> FE: Confirmation
+FE --> Guest: Booking confirmation
+
+== Check-in ==
+Guest -> Staff: Arrive at hotel
+Staff -> FE: Login to admin panel
+Staff -> FE: Find reservation
+Staff -> FE: Click "Check In"
+FE -> API: PUT /status?status=CHECKED_IN
+API -> DB: Update status
+DB --> API: Updated
+API --> FE: Success
+FE --> Staff: Guest checked in
+
+== Stay ==
+Guest -> Guest: Enjoy stay
+
+== Check-out ==
+Guest -> Staff: Request check-out
+Staff -> FE: Click "Check Out"
+FE -> API: PUT /status?status=CHECKED_OUT
+API -> DB: Update status
+DB --> API: Updated
+API --> FE: Success
+FE -> FE: Generate bill
+FE --> Staff: Display bill
+
+== Bill Delivery ==
+Staff -> FE: Click "Email to Guest"
+FE -> FE: Send via EmailJS
+FE --> Guest: Email with bill
+Staff -> FE: Click "Print Bill"
+FE --> Staff: Print bill
+
+@enduml

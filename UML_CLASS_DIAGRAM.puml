@@ -1,0 +1,241 @@
+@startuml Ocean View Resort - Class Diagram
+
+' Model Classes
+package "Model" {
+    class User {
+        - Long id
+        - String username
+        - String password
+        - String fullName
+        - UserRole role
+        + getId(): Long
+        + getUsername(): String
+        + getPassword(): String
+        + getRole(): UserRole
+    }
+
+    class Reservation {
+        - Long id
+        - String reservationNumber
+        - String guestName
+        - String address
+        - String contactNumber
+        - String email
+        - RoomType roomType
+        - LocalDate checkInDate
+        - LocalDate checkOutDate
+        - ReservationStatus status
+        - Integer numberOfGuests
+        - String specialRequests
+        + getNumberOfNights(): int
+        + getTotalAmount(): double
+        + generateReservationNumber(): void
+    }
+
+    enum UserRole {
+        ADMIN
+        RECEPTIONIST
+        MANAGER
+    }
+
+    enum RoomType {
+        STANDARD
+        DELUXE
+        SUITE
+        FAMILY
+        PRESIDENTIAL
+        + getPrice(): double
+    }
+
+    enum ReservationStatus {
+        CONFIRMED
+        CHECKED_IN
+        CHECKED_OUT
+        CANCELLED
+    }
+
+    Reservation --> RoomType
+    Reservation --> ReservationStatus
+    User --> UserRole
+}
+
+' Repository Layer
+package "Repository" {
+    interface UserRepository {
+        + findByUsername(String): Optional<User>
+    }
+
+    interface ReservationRepository {
+        + findByReservationNumber(String): Optional<Reservation>
+        + findByGuestNameContainingIgnoreCase(String): List<Reservation>
+        + countOverlappingReservations(RoomType, LocalDate, LocalDate): long
+    }
+
+    UserRepository ..> User
+    ReservationRepository ..> Reservation
+}
+
+' Service Layer
+package "Service" {
+    class UserService {
+        - UserRepository userRepository
+        + findByUsername(String): User
+    }
+
+    class ReservationService {
+        - ReservationRepository reservationRepository
+        - EmailService emailService
+        + createReservation(ReservationRequest): ReservationResponse
+        + getReservationByNumber(String): ReservationResponse
+        + getAllReservations(): List<ReservationResponse>
+        + searchByGuestName(String): List<ReservationResponse>
+        + updateReservationStatus(String, ReservationStatus): ReservationResponse
+        + cancelReservation(String): ReservationResponse
+        + updateReservation(String, ReservationRequest): ReservationResponse
+    }
+
+    class EmailService {
+        + sendBillEmail(Reservation, String): void
+        - generateBillHtml(Reservation): String
+        - simulateEmailSending(String, String): void
+    }
+
+    UserService --> UserRepository
+    ReservationService --> ReservationRepository
+    ReservationService --> EmailService
+}
+
+' DTO Classes
+package "DTO" {
+    class LoginRequest {
+        - String username
+        - String password
+    }
+
+    class LoginResponse {
+        - String token
+        - String username
+        - String role
+    }
+
+    class ReservationRequest {
+        - String guestName
+        - String address
+        - String contactNumber
+        - String email
+        - RoomType roomType
+        - LocalDate checkInDate
+        - LocalDate checkOutDate
+        - Integer numberOfGuests
+        - String specialRequests
+    }
+
+    class ReservationResponse {
+        - Long id
+        - String reservationNumber
+        - String guestName
+        - String address
+        - String contactNumber
+        - String email
+        - RoomType roomType
+        - LocalDate checkInDate
+        - LocalDate checkOutDate
+        - ReservationStatus status
+        - Integer numberOfGuests
+        - String specialRequests
+        - Double totalAmount
+        - Integer numberOfNights
+    }
+
+    class ApiResponse<T> {
+        - boolean success
+        - String message
+        - T data
+        + success(String, T): ApiResponse<T>
+        + error(String): ApiResponse<T>
+    }
+}
+
+' Controller Layer
+package "Controller" {
+    class AuthController {
+        - AuthenticationManager authenticationManager
+        - JwtUtil jwtUtil
+        - UserService userService
+        + login(LoginRequest): ResponseEntity<ApiResponse<LoginResponse>>
+    }
+
+    class ReservationController {
+        - ReservationService reservationService
+        + createReservation(ReservationRequest): ResponseEntity<ApiResponse<ReservationResponse>>
+        + createPublicReservation(ReservationRequest): ResponseEntity<ApiResponse<ReservationResponse>>
+        + getAllReservations(): ResponseEntity<ApiResponse<List<ReservationResponse>>>
+        + getReservation(String): ResponseEntity<ApiResponse<ReservationResponse>>
+        + searchReservations(String): ResponseEntity<ApiResponse<List<ReservationResponse>>>
+        + updateStatus(String, ReservationStatus): ResponseEntity<ApiResponse<ReservationResponse>>
+        + cancelReservation(String): ResponseEntity<ApiResponse<ReservationResponse>>
+        + updateReservation(String, ReservationRequest): ResponseEntity<ApiResponse<ReservationResponse>>
+    }
+
+    AuthController --> UserService
+    AuthController ..> LoginRequest
+    AuthController ..> LoginResponse
+    ReservationController --> ReservationService
+    ReservationController ..> ReservationRequest
+    ReservationController ..> ReservationResponse
+}
+
+' Security Layer
+package "Security" {
+    class JwtUtil {
+        - String secret
+        - Long expiration
+        + generateToken(UserDetails): String
+        + extractUsername(String): String
+        + validateToken(String, UserDetails): boolean
+        + isTokenExpired(String): boolean
+    }
+
+    class JwtAuthenticationFilter {
+        - JwtUtil jwtUtil
+        - CustomUserDetailsService userDetailsService
+        + doFilterInternal(HttpServletRequest, HttpServletResponse, FilterChain): void
+    }
+
+    class CustomUserDetailsService {
+        - UserService userService
+        + loadUserByUsername(String): UserDetails
+    }
+
+    class SecurityConfig {
+        + securityFilterChain(HttpSecurity): SecurityFilterChain
+        + passwordEncoder(): PasswordEncoder
+        + authenticationManager(AuthenticationConfiguration): AuthenticationManager
+    }
+
+    JwtAuthenticationFilter --> JwtUtil
+    JwtAuthenticationFilter --> CustomUserDetailsService
+    CustomUserDetailsService --> UserService
+}
+
+' Exception Handling
+package "Exception" {
+    class ResourceNotFoundException {
+        + ResourceNotFoundException(String)
+    }
+
+    class ValidationException {
+        + ValidationException(String)
+    }
+
+    class GlobalExceptionHandler {
+        + handleResourceNotFoundException(ResourceNotFoundException): ResponseEntity
+        + handleValidationException(ValidationException): ResponseEntity
+        + handleGenericException(Exception): ResponseEntity
+    }
+
+    GlobalExceptionHandler ..> ResourceNotFoundException
+    GlobalExceptionHandler ..> ValidationException
+}
+
+@enduml
