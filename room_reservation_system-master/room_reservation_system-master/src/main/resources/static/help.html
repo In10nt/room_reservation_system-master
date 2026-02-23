@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help - Ocean View Resort</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">🏖️ Ocean View Resort</div>
+        <div class="nav-user">
+            <span id="userInfo"></span>
+            <button onclick="logout()" class="btn btn-secondary">Logout</button>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="sidebar">
+            <ul class="menu">
+                <li><a href="dashboard.html">📊 Dashboard</a></li>
+                <li><a href="add-reservation.html">➕ New Reservation</a></li>
+                <li><a href="view-reservations.html">📋 View Reservations</a></li>
+                <li><a href="search-reservation.html">🔍 Search</a></li>
+                <li><a href="reports.html">📈 Reports</a></li>
+                <li><a href="help.html" class="active">❓ Help</a></li>
+            </ul>
+        </div>
+        
+        <div class="main-content">
+            <h1>System Help Guide</h1>
+            
+            <div class="help-section">
+                <h2>🔐 Login</h2>
+                <p>Use your assigned username and password to access the system. Contact your administrator if you've forgotten your credentials.</p>
+                <p><strong>Default Accounts:</strong></p>
+                <ul>
+                    <li>Admin: admin / admin123</li>
+                    <li>Receptionist: receptionist / recep123</li>
+                    <li>Manager: manager / manager123</li>
+                </ul>
+            </div>
+            
+            <div class="help-section">
+                <h2>➕ Creating a New Reservation</h2>
+                <ol>
+                    <li>Click on "New Reservation" in the menu</li>
+                    <li>Fill in all required fields marked with *</li>
+                    <li>Select the room type and dates</li>
+                    <li>The system will automatically calculate the total amount</li>
+                    <li>Click "Create Reservation" to save</li>
+                </ol>
+                <p><strong>Important:</strong> Contact number must be exactly 10 digits.</p>
+            </div>
+            
+            <div class="help-section">
+                <h2>📋 Viewing Reservations</h2>
+                <p>Click on "View Reservations" to see all bookings. You can:</p>
+                <ul>
+                    <li>Filter by status (Confirmed, Checked In, etc.)</li>
+                    <li>View detailed information by clicking on a reservation</li>
+                    <li>Update reservation status</li>
+                    <li>Cancel reservations (Manager/Admin only)</li>
+                </ul>
+            </div>
+            
+            <div class="help-section">
+                <h2>🔍 Searching for Reservations</h2>
+                <p>Use the Search function to find reservations by guest name. The search is case-insensitive and will show all matching results.</p>
+            </div>
+            
+            <div class="help-section">
+                <h2>📈 Reports</h2>
+                <p>The Reports section provides:</p>
+                <ul>
+                    <li>Overall booking statistics</li>
+                    <li>Revenue summary by room type</li>
+                    <li>Recent reservation activity</li>
+                    <li>Printable reports</li>
+                </ul>
+            </div>
+            
+            <div class="help-section">
+                <h2>🏨 Room Types & Rates</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Room Type</th>
+                            <th>Rate per Night</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Standard</td>
+                            <td>LKR 5,000</td>
+                            <td>Standard Room with basic amenities</td>
+                        </tr>
+                        <tr>
+                            <td>Deluxe</td>
+                            <td>LKR 8,000</td>
+                            <td>Deluxe Room with ocean view</td>
+                        </tr>
+                        <tr>
+                            <td>Suite</td>
+                            <td>LKR 12,000</td>
+                            <td>Luxury Suite with premium amenities</td>
+                        </tr>
+                        <tr>
+                            <td>Family</td>
+                            <td>LKR 15,000</td>
+                            <td>Family Room with multiple beds</td>
+                        </tr>
+                        <tr>
+                            <td>Presidential</td>
+                            <td>LKR 25,000</td>
+                            <td>Presidential Suite with exclusive services</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="help-section">
+                <h2>❓ Need More Help?</h2>
+                <p>Contact your system administrator or IT support for additional assistance.</p>
+                <p>Email: support@oceanviewresort.lk</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/common.js"></script>
+</body>
+</html>
