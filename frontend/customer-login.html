@@ -4,40 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guest Login - Ocean View Resort</title>
-    <link rel="stylesheet" href="css/customer-style.css">
+    <link rel="stylesheet" href="css/auth-style.css">
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-card">
-            <div class="login-header">
-                <img src="images/logo.png" alt="Ocean View Resort Logo" class="login-logo">
-                <h1>Guest Login</h1>
-                <p>Login to manage your reservations</p>
+    <div class="auth-container">
+        <div class="auth-left">
+            <div class="auth-overlay">
+                <img src="images/logo.png" alt="Ocean View Resort Logo" class="auth-logo">
+                <h1>Welcome Back!</h1>
+                <p>Login to manage your reservations and enjoy exclusive benefits</p>
+                <div class="auth-features">
+                    <div class="feature-item">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                        <span>Easy Booking Management</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                        <span>View Reservation History</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                        <span>Exclusive Guest Offers</span>
+                    </div>
+                </div>
             </div>
-            
-            <div id="errorMessage" class="error-message" style="display: none;"></div>
-            
-            <form id="loginForm" class="login-form">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" required>
+        </div>
+        
+        <div class="auth-right">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h2>Guest Login</h2>
+                    <p>Enter your credentials to access your account</p>
                 </div>
                 
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" required>
+                <div id="errorMessage" class="error-message" style="display: none;"></div>
+                
+                <form id="loginForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="username">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            Username
+                        </label>
+                        <input type="text" id="username" placeholder="Enter your username" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                            Password
+                        </label>
+                        <input type="password" id="password" placeholder="Enter your password" required>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">
+                        <span>Login</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </button>
+                </form>
+                
+                <div class="auth-divider">
+                    <span>New to Ocean View Resort?</span>
                 </div>
                 
-                <button type="submit" class="btn-submit">Login</button>
-            </form>
-            
-            <div class="login-footer">
-                <p>Don't have an account? <a href="customer-register.html">Register here</a></p>
-                <p><a href="customer/index.html">Back to Home</a></p>
+                <a href="customer-register.html" class="btn-secondary">Create an Account</a>
+                
+                <div class="auth-footer">
+                    <a href="customer/index.html">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="19" y1="12" x2="5" y2="12"></line>
+                            <polyline points="12 19 5 12 12 5"></polyline>
+                        </svg>
+                        Back to Home
+                    </a>
+                    <span class="staff-note">Staff? <a href="login.html">Login here</a></span>
+                </div>
             </div>
         </div>
     </div>
     
-    <script src="js/customer-login.js?v=1"></script>
+    <script src="js/customer-login.js?v=2"></script>
 </body>
 </html>
