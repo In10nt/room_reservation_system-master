@@ -1,41 +1,16 @@
-// Check for new reservations
-async function checkNewReservations() {
-    try {
-        const lastCheckTime = localStorage.getItem('lastReservationCheck') || '0';
-        const response = await fetch(`${API_BASE_URL}/reservations`, {
-            headers: getAuthHeaders()
-        });
-        
-        if (response.ok) {
-            const data = await response.json();
-            const reservations = data.data || [];
-            
-            // Count new reservations since last check
-            const newReservations = reservations.filter(r => r.id > parseInt(lastCheckTime));
-            
-            if (newReservations.length > 0) {
-                showNotificationBadge(newReservations.length);
-            }
+// Update new reservations count
+function updateNewReservationsCount(reservations) {
+    // Count CONFIRMED reservations (new requests)
+    const newReservations = reservations.filter(r => r.status === 'CONFIRMED');
+    const badge = document.getElementById('notificationBadge');
+    
+    if (badge) {
+        if (newReservations.length > 0) {
+            badge.textContent = newReservations.length;
+            badge.style.display = 'inline-block';
+        } else {
+            badge.style.display = 'none';
         }
-    } catch (error) {
-        console.error('Error checking new reservations:', error);
-    }
-}
-
-// Show notification badge
-function showNotificationBadge(count) {
-    const badge = document.getElementById('notificationBadge');
-    if (badge) {
-        badge.textContent = count;
-        badge.style.display = 'inline-block';
-    }
-}
-
-// Clear notification badge
-function clearNotificationBadge() {
-    const badge = document.getElementById('notificationBadge');
-    if (badge) {
-        badge.style.display = 'none';
     }
 }
 
@@ -62,8 +37,8 @@ async function loadDashboardStats() {
             document.getElementById('checkedInReservations').textContent = checkedIn;
             document.getElementById('totalRevenue').textContent = formatCurrency(totalRevenue);
             
-            // Check for new reservations
-            checkNewReservations();
+            // Update new reservations count
+            updateNewReservationsCount(reservations);
         }
     } catch (error) {
         console.error('Error loading dashboard stats:', error);
@@ -74,6 +49,6 @@ async function loadDashboardStats() {
 document.addEventListener('DOMContentLoaded', function() {
     loadDashboardStats();
     
-    // Check for new reservations every 30 seconds
-    setInterval(checkNewReservations, 30000);
+    // Refresh stats every 30 seconds
+    setInterval(loadDashboardStats, 30000);
 });
