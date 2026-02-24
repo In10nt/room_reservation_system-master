@@ -67,6 +67,12 @@ body {
     color: white;
 }
 
+.nav-brand .nav-logo-img {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+}
+
 .nav-brand svg {
     color: white;
     flex-shrink: 0;

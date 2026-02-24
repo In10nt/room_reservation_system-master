@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -56,11 +58,15 @@ public class EmailService {
      * Generate HTML content for the bill email
      */
     private String generateBillHtml(Reservation reservation) {
-        double subtotal = reservation.getTotalAmount();
-        double tax = subtotal * 0.12; // 12% tax
-        double total = subtotal + tax;
+        BigDecimal subtotal = reservation.getTotalAmount();
+        BigDecimal tax = subtotal.multiply(new BigDecimal("0.12")); // 12% tax
+        BigDecimal total = subtotal.add(tax);
         
-        double pricePerNight = subtotal / reservation.getNumberOfNights() / reservation.getNumberOfGuests();
+        BigDecimal pricePerNight = subtotal.divide(
+            BigDecimal.valueOf(reservation.getNumberOfNights()), 
+            2, 
+            RoundingMode.HALF_UP
+        );
         
         String checkInDate = reservation.getCheckInDate().format(DATE_FORMATTER);
         String checkOutDate = reservation.getCheckOutDate().format(DATE_FORMATTER);
@@ -247,7 +253,7 @@ public class EmailService {
     /**
      * Format currency value
      */
-    private String formatCurrency(double amount) {
+    private String formatCurrency(BigDecimal amount) {
         return String.format("LKR %.2f", amount);
     }
 }

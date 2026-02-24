@@ -34,8 +34,9 @@ public class UserServiceTest {
 
     @Test
     public void testFindNonExistentUser() {
-        User user = userService.findByUsername("nonexistent");
-        assertNull(user);
+        assertThrows(RuntimeException.class, () -> {
+            userService.findByUsername("nonexistent");
+        });
     }
 
     @Test

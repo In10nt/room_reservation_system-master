@@ -27,9 +27,10 @@ package "Model" {
         - ReservationStatus status
         - Integer numberOfGuests
         - String specialRequests
-        + getNumberOfNights(): int
-        + getTotalAmount(): double
-        + generateReservationNumber(): void
+        - BigDecimal totalAmount
+        + getNumberOfNights(): long
+        + getTotalAmount(): BigDecimal
+        + calculateTotalAmount(): void
     }
 
     enum UserRole {

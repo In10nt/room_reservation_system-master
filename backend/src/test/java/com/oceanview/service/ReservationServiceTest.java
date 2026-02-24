@@ -32,7 +32,7 @@ import static org.mockito.Mockito.*;
  */
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Reservation Service Tests")
-class ReservationServiceTest {
+public class ReservationServiceTest {
     
     @Mock
     private ReservationRepository reservationRepository;

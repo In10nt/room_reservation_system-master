@@ -147,6 +147,12 @@ body.dark-mode .customer-nav {
     gap: 1rem;
 }
 
+.nav-logo .logo-img {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+}
+
 .nav-logo span {
     font-size: 1.6rem;
     font-weight: 800;

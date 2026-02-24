@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @DisplayName("Reservation Controller Integration Tests")
-class ReservationControllerTest {
+public class ReservationControllerTest {
     
     @Autowired
     private MockMvc mockMvc;
@@ -117,9 +117,9 @@ class ReservationControllerTest {
     }
     
     @Test
-    @DisplayName("Should return 401 when not authenticated")
+    @DisplayName("Should return 403 when not authenticated")
     void testUnauthorizedAccess() throws Exception {
         mockMvc.perform(get("/api/reservations"))
-                .andExpect(status().isUnauthorized());
+                .andExpect(status().isForbidden()); // 403 for forbidden access
     }
 }

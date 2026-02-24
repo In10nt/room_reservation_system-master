@@ -3,6 +3,7 @@ package com.oceanview.model;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,6 +27,8 @@ public class ReservationTest {
         reservation.setCheckOutDate(LocalDate.now().plusDays(3));
         reservation.setNumberOfGuests(2);
         reservation.setStatus(ReservationStatus.CONFIRMED);
+        reservation.calculateTotalAmount(); // Calculate total amount
+        reservation.setReservationNumber("RES-" + System.currentTimeMillis()); // Generate reservation number
     }
 
     @Test
@@ -41,41 +44,36 @@ public class ReservationTest {
 
     @Test
     public void testTotalAmountCalculation() {
-        // DELUXE room: 8000 per night per person
-        // 3 nights * 2 guests * 8000 = 48000
-        assertEquals(48000.0, reservation.getTotalAmount());
+        // DELUXE room: 8000 per night * 3 nights = 24000
+        assertEquals(new BigDecimal("24000.00"), reservation.getTotalAmount());
     }
 
     @Test
     public void testStandardRoomPricing() {
         reservation.setRoomType(RoomType.STANDARD);
-        // STANDARD: 5000 per night per person
-        // 3 nights * 2 guests * 5000 = 30000
-        assertEquals(30000.0, reservation.getTotalAmount());
+        // STANDARD: 5000 per night * 3 nights = 15000
+        assertEquals(new BigDecimal("15000.00"), reservation.getTotalAmount());
     }
 
     @Test
     public void testSuiteRoomPricing() {
         reservation.setRoomType(RoomType.SUITE);
-        // SUITE: 12000 per night per person
-        // 3 nights * 2 guests * 12000 = 72000
-        assertEquals(72000.0, reservation.getTotalAmount());
+        // SUITE: 12000 per night * 3 nights = 36000
+        assertEquals(new BigDecimal("36000.00"), reservation.getTotalAmount());
     }
 
     @Test
     public void testFamilyRoomPricing() {
         reservation.setRoomType(RoomType.FAMILY);
-        // FAMILY: 15000 per night per person
-        // 3 nights * 2 guests * 15000 = 90000
-        assertEquals(90000.0, reservation.getTotalAmount());
+        // FAMILY: 15000 per night * 3 nights = 45000
+        assertEquals(new BigDecimal("45000.00"), reservation.getTotalAmount());
     }
 
     @Test
     public void testPresidentialRoomPricing() {
         reservation.setRoomType(RoomType.PRESIDENTIAL);
-        // PRESIDENTIAL: 25000 per night per person
-        // 3 nights * 2 guests * 25000 = 150000
-        assertEquals(150000.0, reservation.getTotalAmount());
+        // PRESIDENTIAL: 25000 per night * 3 nights = 75000
+        assertEquals(new BigDecimal("75000.00"), reservation.getTotalAmount());
     }
 
     @Test
@@ -87,9 +85,8 @@ public class ReservationTest {
     @Test
     public void testMultipleGuestsPricing() {
         reservation.setNumberOfGuests(4);
-        // DELUXE: 8000 per night per person
-        // 3 nights * 4 guests * 8000 = 96000
-        assertEquals(96000.0, reservation.getTotalAmount());
+        // DELUXE: 8000 per night * 3 nights = 24000 (guests don't affect price)
+        assertEquals(new BigDecimal("24000.00"), reservation.getTotalAmount());
     }
 
     @Test

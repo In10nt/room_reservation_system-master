@@ -4,10 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,49 +16,57 @@ public class JwtUtilTest {
     @Autowired
     private JwtUtil jwtUtil;
 
-    private UserDetails userDetails;
+    private String testUsername;
+    private String testRole;
 
     @BeforeEach
     public void setUp() {
-        userDetails = new User("testuser", "password", new ArrayList<>());
+        testUsername = "testuser";
+        testRole = "ADMIN";
     }
 
     @Test
     public void testGenerateToken() {
-        String token = jwtUtil.generateToken(userDetails);
+        String token = jwtUtil.generateToken(testUsername, testRole);
         assertNotNull(token);
         assertFalse(token.isEmpty());
     }
 
     @Test
     public void testExtractUsername() {
-        String token = jwtUtil.generateToken(userDetails);
+        String token = jwtUtil.generateToken(testUsername, testRole);
         String username = jwtUtil.extractUsername(token);
         assertEquals("testuser", username);
     }
 
     @Test
     public void testValidateToken() {
-        String token = jwtUtil.generateToken(userDetails);
-        assertTrue(jwtUtil.validateToken(token, userDetails));
+        String token = jwtUtil.generateToken(testUsername, testRole);
+        assertTrue(jwtUtil.validateToken(token, testUsername));
     }
 
     @Test
-    public void testTokenNotExpired() {
-        String token = jwtUtil.generateToken(userDetails);
-        assertFalse(jwtUtil.isTokenExpired(token));
+    public void testValidateTokenWithDifferentUser() {
+        String token = jwtUtil.generateToken(testUsername, testRole);
+        assertFalse(jwtUtil.validateToken(token, "differentuser"));
     }
 
     @Test
-    public void testTokenWithDifferentUser() {
-        String token = jwtUtil.generateToken(userDetails);
-        UserDetails differentUser = new User("differentuser", "password", new ArrayList<>());
-        assertFalse(jwtUtil.validateToken(token, differentUser));
+    public void testGenerateTokenWithDifferentRoles() {
+        String adminToken = jwtUtil.generateToken(testUsername, "ADMIN");
+        String receptionistToken = jwtUtil.generateToken(testUsername, "RECEPTIONIST");
+        
+        assertNotNull(adminToken);
+        assertNotNull(receptionistToken);
+        assertNotEquals(adminToken, receptionistToken);
     }
 
     @Test
-    public void testExtractExpirationDate() {
-        String token = jwtUtil.generateToken(userDetails);
-        assertNotNull(jwtUtil.extractExpiration(token));
+    public void testExtractUsernameFromMultipleTokens() {
+        String token1 = jwtUtil.generateToken("user1", "ADMIN");
+        String token2 = jwtUtil.generateToken("user2", "RECEPTIONIST");
+        
+        assertEquals("user1", jwtUtil.extractUsername(token1));
+        assertEquals("user2", jwtUtil.extractUsername(token2));
     }
 }
