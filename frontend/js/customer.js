@@ -493,7 +493,7 @@ async function handleBookingSubmit(e) {
         submitBtn.textContent = 'Submitting...';
         submitBtn.disabled = true;
         
-        const response = await fetch('http://localhost:8081/api/reservations/public', {
+        const response = await fetch('https://jewell-unperilous-gaily.ngrok-free.dev/api/reservations/public', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
