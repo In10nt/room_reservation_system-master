@@ -69,23 +69,29 @@ function displayRecentReservations(reservations) {
     const tbody = document.getElementById('recentReservations');
     tbody.innerHTML = '';
     
-    // Sort by creation date (most recent first) and take top 10
-    const recent = reservations
-        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-        .slice(0, 10);
+    // Sort by ID descending (newest first) and show ALL reservations
+    const sortedReservations = [...reservations].sort((a, b) => b.id - a.id);
     
-    recent.forEach(reservation => {
+    sortedReservations.forEach(reservation => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${formatDate(reservation.checkInDate)}</td>
             <td>${reservation.reservationNumber}</td>
             <td>${reservation.guestName}</td>
+            <td>${reservation.email}</td>
+            <td>${reservation.contactNumber}</td>
             <td>${reservation.roomType}</td>
+            <td>${formatDate(reservation.checkInDate)}</td>
+            <td>${formatDate(reservation.checkOutDate)}</td>
+            <td>${reservation.numberOfNights}</td>
+            <td>${reservation.numberOfGuests}</td>
             <td>${formatCurrency(reservation.totalAmount)}</td>
             <td>${getStatusBadge(reservation.status)}</td>
         `;
         tbody.appendChild(row);
     });
+    
+    // Update total count
+    document.getElementById('totalReservationsCount').textContent = sortedReservations.length;
 }
 
 // Print report
