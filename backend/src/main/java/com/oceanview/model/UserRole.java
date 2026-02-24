@@ -7,5 +7,6 @@ package com.oceanview.model;
 public enum UserRole {
     ADMIN,
     RECEPTIONIST,
-    MANAGER
+    MANAGER,
+    GUEST
 }

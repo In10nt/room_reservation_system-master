@@ -1,5 +1,50 @@
 // Customer Portal JavaScript
 
+// Check if user is logged in for booking page
+function checkGuestAuth() {
+    // Only check on booking page
+    if (window.location.pathname.includes('booking.html')) {
+        const token = localStorage.getItem('token');
+        const role = localStorage.getItem('role');
+        
+        if (!token || role !== 'GUEST') {
+            // Redirect to login
+            alert('Please login or register to make a reservation');
+            window.location.href = 'customer-login.html';
+            return false;
+        }
+        
+        // Pre-fill user data
+        prefillUserData();
+        return true;
+    }
+    return true;
+}
+
+// Pre-fill user data in booking form
+function prefillUserData() {
+    const fullName = localStorage.getItem('fullName');
+    const username = localStorage.getItem('username');
+    
+    // Wait for form to be available
+    setTimeout(() => {
+        const guestNameField = document.getElementById('guestName');
+        if (guestNameField && fullName) {
+            guestNameField.value = fullName;
+            guestNameField.readOnly = true;
+        }
+    }, 100);
+}
+
+// Logout function for guests
+function guestLogout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('fullName');
+    localStorage.removeItem('role');
+    window.location.href = 'customer/index.html';
+}
+
 // ============================================
 // MOBILE MENU FUNCTIONALITY
 // ============================================
@@ -64,6 +109,11 @@ const indicators = [];
 
 // Initialize carousel on page load
 document.addEventListener('DOMContentLoaded', function() {
+    // Check authentication for booking page
+    if (!checkGuestAuth()) {
+        return;
+    }
+    
     initCarousel();
     initRoomCarousels();
 
@@ -493,11 +543,12 @@ async function handleBookingSubmit(e) {
         submitBtn.textContent = 'Submitting...';
         submitBtn.disabled = true;
         
-        const response = await fetch('https://jewell-unperilous-gaily.ngrok-free.dev/api/reservations/public', {
+        const response = await fetch('https://jewell-unperilous-gaily.ngrok-free.dev/api/reservations', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'ngrok-skip-browser-warning': 'true'
+                'ngrok-skip-browser-warning': 'true',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify(formData)
         });

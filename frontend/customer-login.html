@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Login - Ocean View Resort</title>
+    <link rel="stylesheet" href="css/customer-style.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <img src="images/logo.png" alt="Ocean View Resort Logo" class="login-logo">
+                <h1>Guest Login</h1>
+                <p>Login to manage your reservations</p>
+            </div>
+            
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+            
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required>
+                </div>
+                
+                <button type="submit" class="btn-submit">Login</button>
+            </form>
+            
+            <div class="login-footer">
+                <p>Don't have an account? <a href="customer-register.html">Register here</a></p>
+                <p><a href="customer/index.html">Back to Home</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/customer-login.js?v=1"></script>
+</body>
+</html>

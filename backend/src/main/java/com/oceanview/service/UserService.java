@@ -54,4 +54,28 @@ public class UserService {
         return userRepository.findByUsername(username)
             .orElseThrow(() -> new RuntimeException("User not found: " + username));
     }
+
+
+    /**
+     * Creates a new user with User object
+     */
+    public User createUser(User user) {
+        log.info("Creating user: {}", user.getUsername());
+
+        if (userRepository.existsByUsername(user.getUsername())) {
+            throw new RuntimeException("Username already exists");
+        }
+
+        user.setActive(true);
+        return userRepository.save(user);
+    }
+
+    /**
+     * Check if username exists
+     */
+    @Transactional(readOnly = true)
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
 }

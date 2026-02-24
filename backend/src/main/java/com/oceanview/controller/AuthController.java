@@ -3,7 +3,9 @@ package com.oceanview.controller;
 import com.oceanview.dto.ApiResponse;
 import com.oceanview.dto.LoginRequest;
 import com.oceanview.dto.LoginResponse;
+import com.oceanview.dto.RegisterRequest;
 import com.oceanview.model.User;
+import com.oceanview.model.UserRole;
 import com.oceanview.security.JwtUtil;
 import com.oceanview.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -31,11 +34,13 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
     
-    public AuthController(AuthenticationManager authenticationManager, JwtUtil jwtUtil, UserService userService) {
+    public AuthController(AuthenticationManager authenticationManager, JwtUtil jwtUtil, UserService userService, PasswordEncoder passwordEncoder) {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
     
     @PostMapping("/login")
@@ -66,6 +71,49 @@ public class AuthController {
             log.error("Login failed for user: {}", request.getUsername(), e);
             return ResponseEntity.badRequest()
                 .body(ApiResponse.error("Invalid username or password"));
+        }
+    }
+    
+    @PostMapping("/register")
+    @Operation(summary = "Guest registration", description = "Register a new guest user")
+    public ResponseEntity<ApiResponse<LoginResponse>> register(@Valid @RequestBody RegisterRequest request) {
+        log.info("Registration attempt for username: {}", request.getUsername());
+        
+        try {
+            // Check if username already exists
+            if (userService.existsByUsername(request.getUsername())) {
+                return ResponseEntity.badRequest()
+                    .body(ApiResponse.error("Username already exists"));
+            }
+            
+            // Create new guest user
+            User newUser = new User();
+            newUser.setUsername(request.getUsername());
+            newUser.setPassword(passwordEncoder.encode(request.getPassword()));
+            newUser.setFullName(request.getFullName());
+            newUser.setEmail(request.getEmail());
+            newUser.setRole(UserRole.GUEST);
+            
+            User savedUser = userService.createUser(newUser);
+            
+            // Generate token for auto-login
+            String token = jwtUtil.generateToken(savedUser.getUsername(), savedUser.getRole().name());
+            
+            LoginResponse response = new LoginResponse(
+                token,
+                savedUser.getUsername(),
+                savedUser.getFullName(),
+                savedUser.getRole().name(),
+                "Registration successful"
+            );
+            
+            log.info("Registration successful for user: {}", request.getUsername());
+            return ResponseEntity.ok(ApiResponse.success("Registration successful", response));
+            
+        } catch (Exception e) {
+            log.error("Registration failed for user: {}", request.getUsername(), e);
+            return ResponseEntity.badRequest()
+                .body(ApiResponse.error("Registration failed: " + e.getMessage()));
         }
     }
     

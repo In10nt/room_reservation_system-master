@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Registration - Ocean View Resort</title>
+    <link rel="stylesheet" href="css/customer-style.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <img src="images/logo.png" alt="Ocean View Resort Logo" class="login-logo">
+                <h1>Guest Registration</h1>
+                <p>Create your account to book reservations</p>
+            </div>
+            
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+            <div id="successMessage" class="success-message" style="display: none;"></div>
+            
+            <form id="registerForm" class="login-form">
+                <div class="form-group">
+                    <label for="fullName">Full Name *</label>
+                    <input type="text" id="fullName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="contactNumber">Contact Number *</label>
+                    <input type="tel" id="contactNumber" pattern="[0-9]{10}" placeholder="0771234567" required>
+                    <small>10 digits only</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea id="address" rows="2"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="username">Username *</label>
+                    <input type="text" id="username" minlength="3" required>
+                    <small>At least 3 characters</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password *</label>
+                    <input type="password" id="password" minlength="6" required>
+                    <small>At least 6 characters</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password *</label>
+                    <input type="password" id="confirmPassword" minlength="6" required>
+                </div>
+                
+                <button type="submit" class="btn-submit">Register</button>
+            </form>
+            
+            <div class="login-footer">
+                <p>Already have an account? <a href="customer-login.html">Login here</a></p>
+                <p><a href="customer/index.html">Back to Home</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/customer-register.js?v=1"></script>
+</body>
+</html>
