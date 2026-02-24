@@ -28,6 +28,8 @@ public class User {
     @NotBlank(message = "Full name is required")
     private String fullName;
     
+    private String email;
+    
     @Enumerated(EnumType.STRING)
     private UserRole role;
     
@@ -39,11 +41,12 @@ public class User {
     public User() {
     }
     
-    public User(Long id, String username, String password, String fullName, UserRole role, boolean active, LocalDateTime createdAt) {
+    public User(Long id, String username, String password, String fullName, String email, UserRole role, boolean active, LocalDateTime createdAt) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.fullName = fullName;
+        this.email = email;
         this.role = role;
         this.active = active;
         this.createdAt = createdAt;
@@ -79,6 +82,14 @@ public class User {
     
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+    
+    public void setEmail(String email) {
+        this.email = email;
     }
     
     public UserRole getRole() {
