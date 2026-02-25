@@ -1,18 +1,9 @@
--- ============================================
 -- Ocean View Resort - Complete Database Setup
--- ============================================
--- This script creates the database, tables, and inserts default users
--- Run this in MySQL Workbench or MySQL Command Line Client
-
 -- Step 1: Create Database
 CREATE DATABASE IF NOT EXISTS ocean_view_resort;
 
 -- Step 2: Use the database
 USE ocean_view_resort;
-
--- Step 3: Drop existing tables if they exist (for clean setup)
-DROP TABLE IF EXISTS reservations;
-DROP TABLE IF EXISTS users;
 
 -- Step 4: Create Users Table
 CREATE TABLE users (
@@ -50,11 +41,6 @@ CREATE TABLE reservations (
     INDEX idx_status (status)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Step 6: Insert Default Users
--- Note: These passwords are BCrypt hashed versions of the plain text passwords
--- admin123 -> $2a$10$xqxqxqxqxqxqxqxqxqxqxqxqxqxqxqxqxqxqxqxqxqxqxqxqxq
--- recep123 -> $2a$10$yqyqyqyqyqyqyqyqyqyqyqyqyqyqyqyqyqyqyqyqyqyqyqyqyq
--- manager123 -> $2a$10$zqzqzqzqzqzqzqzqzqzqzqzqzqzqzqzqzqzqzqzqzqzqzqzqzq
 
 -- Admin User (username: admin, password: admin123)
 INSERT INTO users (username, password, full_name, role, active, created_at) 
@@ -92,15 +78,6 @@ SELECT id, username, full_name, role, active FROM users;
 
 -- Display all reservations
 SELECT id, reservation_number, guest_name, room_type, check_in_date, check_out_date, status, total_amount FROM reservations;
-
--- ============================================
--- Room Type Pricing Reference
--- ============================================
--- STANDARD: LKR 5,000 per night
--- DELUXE: LKR 8,000 per night
--- SUITE: LKR 12,000 per night
--- FAMILY: LKR 15,000 per night
--- PRESIDENTIAL: LKR 25,000 per night
 
 -- ============================================
 -- Default Login Credentials

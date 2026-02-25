@@ -572,7 +572,16 @@ async function handleBookingSubmit(e) {
             body: JSON.stringify(formData)
         });
         
-        const data = await response.json();
+        // Check if response is JSON
+        const contentType = response.headers.get('content-type');
+        let data;
+        
+        if (contentType && contentType.includes('application/json')) {
+            data = await response.json();
+        } else {
+            const text = await response.text();
+            throw new Error(`Server error (${response.status}): ${text || response.statusText}`);
+        }
         
         if (response.ok && data.success) {
             showSuccess(`Reservation request submitted successfully! Your reservation number is: ${data.data.reservationNumber}. Our team will contact you shortly to confirm.`);
@@ -591,7 +600,7 @@ async function handleBookingSubmit(e) {
         
     } catch (error) {
         console.error('Booking error:', error);
-        showError('Unable to connect to server. Please try again later.');
+        showError('An unexpected error occurred: ' + (error.message || 'Unable to connect to server. Please try again later.'));
         
         // Reset button
         const submitBtn = document.querySelector('.btn-submit');

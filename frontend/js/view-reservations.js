@@ -1,7 +1,8 @@
 // EmailJS Configuration
-const EMAILJS_PUBLIC_KEY = 'KNbxeKMVPoi2pxoqa'; // Your EmailJS Public Key
-const EMAILJS_SERVICE_ID = 'service_5ocwwbk'; // Your EmailJS Service ID
-const EMAILJS_TEMPLATE_ID = 'template_ypgz73l'; // Your EmailJS Template ID
+// Replace these with your EmailJS credentials from https://www.emailjs.com/
+const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY_HERE'; 
+const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID_HERE';
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID_HERE';
 
 // Initialize EmailJS when page loads
 document.addEventListener('DOMContentLoaded', function() {
@@ -59,7 +60,10 @@ function displayReservations(reservations) {
     const tbody = document.getElementById('reservationsBody');
     tbody.innerHTML = '';
     
-    reservations.forEach(reservation => {
+    // Sort reservations by ID descending (newest first)
+    const sortedReservations = [...reservations].sort((a, b) => b.id - a.id);
+    
+    sortedReservations.forEach(reservation => {
         const row = document.createElement('tr');
         
         // Generate action buttons based on status
