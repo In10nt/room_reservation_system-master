@@ -570,12 +570,18 @@ async function handleBookingSubmit(e) {
         submitBtn.textContent = 'Submitting...';
         submitBtn.disabled = true;
         
+        // Debug: Log token and role
+        const token = localStorage.getItem('token');
+        const role = localStorage.getItem('role');
+        console.log('Submitting reservation with role:', role);
+        console.log('Token exists:', !!token);
+        
         const response = await fetch('https://jewell-unperilous-gaily.ngrok-free.dev/api/reservations', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'ngrok-skip-browser-warning': 'true',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(formData)
         });
