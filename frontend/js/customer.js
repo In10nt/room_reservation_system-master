@@ -61,7 +61,7 @@ function guestLogout() {
     localStorage.removeItem('username');
     localStorage.removeItem('fullName');
     localStorage.removeItem('role');
-    window.location.href = 'booking.html';
+    window.location.href = 'book.html';
 }
 
 // ============================================
