@@ -7,18 +7,13 @@ function checkGuestAuth() {
         const token = localStorage.getItem('token');
         const role = localStorage.getItem('role');
         
-        if (!token || role !== 'GUEST') {
-            // Redirect to login
-            alert('Please login or register to make a reservation');
-            window.location.href = 'customer-login.html';
-            return false;
+        if (token && role === 'GUEST') {
+            // User is logged in - show guest info and pre-fill data
+            showGuestInfo();
+            prefillUserData();
         }
-        
-        // Show guest info in navigation
-        showGuestInfo();
-        
-        // Pre-fill user data
-        prefillUserData();
+        // If not logged in, just show the page normally
+        // They'll be prompted to login when they try to submit
         return true;
     }
     return true;
@@ -519,6 +514,16 @@ function calculatePrice() {
 // Handle booking form submission
 async function handleBookingSubmit(e) {
     e.preventDefault();
+    
+    // Check if user is logged in before submitting
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
+    
+    if (!token || role !== 'GUEST') {
+        alert('Please login or register to make a reservation');
+        window.location.href = 'customer-login.html';
+        return;
+    }
     
     const errorMessage = document.getElementById('errorMessage');
     const successMessage = document.getElementById('successMessage');
