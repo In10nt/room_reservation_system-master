@@ -1,6 +1,19 @@
 // API Base URL
 const API_BASE_URL = 'https://jewell-unperilous-gaily.ngrok-free.dev/api';
 
+// Preserve room type in login link
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const roomType = urlParams.get('room');
+    
+    if (roomType) {
+        const loginLink = document.querySelector('a[href="customer-login.html"]');
+        if (loginLink) {
+            loginLink.href = `customer-login.html?room=${roomType}`;
+        }
+    }
+});
+
 // Handle registration form submission
 document.getElementById('registerForm').addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -68,9 +81,20 @@ document.getElementById('registerForm').addEventListener('submit', async functio
             successMessage.textContent = 'Registration successful! Redirecting...';
             successMessage.style.display = 'block';
             
+            // Check if there's a return URL or room type in the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const returnUrl = urlParams.get('return');
+            const roomType = urlParams.get('room');
+            
             // Redirect to booking page
             setTimeout(() => {
-                window.location.href = 'booking.html';
+                if (returnUrl) {
+                    window.location.href = returnUrl;
+                } else if (roomType) {
+                    window.location.href = `booking.html?room=${roomType}`;
+                } else {
+                    window.location.href = 'booking.html';
+                }
             }, 1500);
         } else {
             errorMessage.textContent = data.message || 'Registration failed. Please try again.';
