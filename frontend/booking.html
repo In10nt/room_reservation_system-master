@@ -24,7 +24,15 @@
                 <li><a href="contact.html">Contact</a></li>
             </ul>
             <div class="nav-actions">
-                <a href="login.html" class="btn-staff">Staff Login</a>
+                <div id="guestInfo" class="guest-info" style="display: none;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span id="guestName"></span>
+                    <button onclick="guestLogout()" class="btn-logout">Logout</button>
+                </div>
+                <a href="login.html" class="btn-staff" id="staffLoginBtn">Staff Login</a>
             </div>
         </div>
     </nav>

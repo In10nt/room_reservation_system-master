@@ -14,11 +14,30 @@ function checkGuestAuth() {
             return false;
         }
         
+        // Show guest info in navigation
+        showGuestInfo();
+        
         // Pre-fill user data
         prefillUserData();
         return true;
     }
     return true;
+}
+
+// Show guest info in navigation
+function showGuestInfo() {
+    const fullName = localStorage.getItem('fullName');
+    const guestInfoDiv = document.getElementById('guestInfo');
+    const guestNameSpan = document.getElementById('guestName');
+    const staffLoginBtn = document.getElementById('staffLoginBtn');
+    
+    if (guestInfoDiv && guestNameSpan && fullName) {
+        guestNameSpan.textContent = fullName;
+        guestInfoDiv.style.display = 'flex';
+        if (staffLoginBtn) {
+            staffLoginBtn.style.display = 'none';
+        }
+    }
 }
 
 // Pre-fill user data in booking form
