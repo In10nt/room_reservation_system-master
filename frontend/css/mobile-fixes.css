@@ -232,19 +232,19 @@
         display: none;
     }
     
-    /* Add scroll indicator */
+    /* Add scroll indicator with animation */
     .rooms-section::after {
-        content: '← Swipe to see more rooms →';
+        content: '← Swipe or wait for auto-scroll →';
         display: block;
         text-align: center;
         color: #999;
-        font-size: 0.85rem;
-        margin-top: 1rem;
-        animation: fadeInOut 2s infinite;
+        font-size: 0.8rem;
+        margin-top: 1.5rem;
+        animation: fadeInOut 3s infinite;
     }
     
     @keyframes fadeInOut {
-        0%, 100% { opacity: 0.5; }
+        0%, 100% { opacity: 0.4; }
         50% { opacity: 1; }
     }
     

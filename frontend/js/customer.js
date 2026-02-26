@@ -714,6 +714,7 @@ let roomsAutoScrollInterval;
 let currentRoomIndex = 0;
 let isUserScrolling = false;
 let scrollTimeout;
+let userInteractionTimeout;
 
 function scrollRooms(direction) {
     const carousel = document.getElementById('roomsCarousel');
@@ -736,35 +737,51 @@ function autoScrollRooms() {
     if (!carousel) return;
     
     const cardWidth = carousel.querySelector('.room-card').offsetWidth;
-    const gap = 32;
+    const gap = window.innerWidth <= 768 ? 16 : 32;
+    const scrollAmount = cardWidth + gap;
     const maxScroll = carousel.scrollWidth - carousel.clientWidth;
     
-    currentRoomIndex++;
-    
-    // Reset to beginning if reached the end
+    // Check if we're near the end
     if (carousel.scrollLeft >= maxScroll - 10) {
-        currentRoomIndex = 0;
+        // Smoothly scroll back to start
         carousel.scrollTo({
             left: 0,
             behavior: 'smooth'
         });
+        currentRoomIndex = 0;
     } else {
+        // Scroll to next card
         carousel.scrollBy({
-            left: cardWidth + gap,
+            left: scrollAmount,
             behavior: 'smooth'
         });
+        currentRoomIndex++;
     }
 }
 
 function startRoomsAutoScroll() {
-    // Only auto-scroll on desktop
-    if (window.innerWidth > 768) {
-        roomsAutoScrollInterval = setInterval(autoScrollRooms, 4000);
-    }
+    clearInterval(roomsAutoScrollInterval);
+    // Slower scroll on mobile (5 seconds), faster on desktop (4 seconds)
+    const interval = window.innerWidth <= 768 ? 5000 : 4000;
+    roomsAutoScrollInterval = setInterval(autoScrollRooms, interval);
 }
 
 function stopRoomsAutoScroll() {
     clearInterval(roomsAutoScrollInterval);
+}
+
+function handleUserInteraction() {
+    isUserScrolling = true;
+    stopRoomsAutoScroll();
+    
+    clearTimeout(userInteractionTimeout);
+    clearTimeout(scrollTimeout);
+    
+    // Resume auto-scroll after 5 seconds of no interaction
+    userInteractionTimeout = setTimeout(() => {
+        isUserScrolling = false;
+        startRoomsAutoScroll();
+    }, 5000);
 }
 
 // Add touch swipe support for rooms carousel
@@ -772,27 +789,40 @@ document.addEventListener('DOMContentLoaded', function() {
     const roomsCarousel = document.getElementById('roomsCarousel');
     if (!roomsCarousel) return;
     
-    // Start auto-scrolling only on desktop
-    if (window.innerWidth > 768) {
-        startRoomsAutoScroll();
-        
-        // Pause auto-scroll on hover (desktop only)
-        roomsCarousel.addEventListener('mouseenter', stopRoomsAutoScroll);
-        roomsCarousel.addEventListener('mouseleave', startRoomsAutoScroll);
-    }
+    // Start auto-scrolling on all devices
+    startRoomsAutoScroll();
     
     // Detect user scrolling
     roomsCarousel.addEventListener('scroll', () => {
-        isUserScrolling = true;
         clearTimeout(scrollTimeout);
         
         scrollTimeout = setTimeout(() => {
-            isUserScrolling = false;
+            // Check if user is still scrolling
+            const currentScroll = roomsCarousel.scrollLeft;
+            setTimeout(() => {
+                if (currentScroll === roomsCarousel.scrollLeft) {
+                    // User stopped scrolling
+                    isUserScrolling = false;
+                }
+            }, 100);
         }, 150);
     }, { passive: true });
     
-    // Desktop drag scrolling
+    // Handle touch interactions on mobile
+    roomsCarousel.addEventListener('touchstart', handleUserInteraction, { passive: true });
+    
+    // Desktop interactions
     if (window.innerWidth > 768) {
+        roomsCarousel.addEventListener('mouseenter', stopRoomsAutoScroll);
+        roomsCarousel.addEventListener('mouseleave', () => {
+            setTimeout(() => {
+                if (!isUserScrolling) {
+                    startRoomsAutoScroll();
+                }
+            }, 1000);
+        });
+        
+        // Desktop drag scrolling
         let startX = 0;
         let scrollLeft = 0;
         let isDown = false;
@@ -802,7 +832,7 @@ document.addEventListener('DOMContentLoaded', function() {
             startX = e.pageX - roomsCarousel.offsetLeft;
             scrollLeft = roomsCarousel.scrollLeft;
             roomsCarousel.style.cursor = 'grabbing';
-            stopRoomsAutoScroll();
+            handleUserInteraction();
         });
         
         roomsCarousel.addEventListener('mouseleave', () => {
@@ -813,7 +843,6 @@ document.addEventListener('DOMContentLoaded', function() {
         roomsCarousel.addEventListener('mouseup', () => {
             isDown = false;
             roomsCarousel.style.cursor = 'grab';
-            setTimeout(startRoomsAutoScroll, 3000);
         });
         
         roomsCarousel.addEventListener('mousemove', (e) => {
@@ -825,8 +854,26 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Mobile: Smooth native scrolling with snap points (already handled by CSS)
-    // No additional JavaScript needed for mobile - CSS scroll-snap handles it
+    // Resume auto-scroll when window becomes visible
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden && !isUserScrolling) {
+            startRoomsAutoScroll();
+        } else {
+            stopRoomsAutoScroll();
+        }
+    });
+    
+    // Restart auto-scroll on window resize
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            stopRoomsAutoScroll();
+            if (!isUserScrolling) {
+                startRoomsAutoScroll();
+            }
+        }, 500);
+    });
 });
 
 
