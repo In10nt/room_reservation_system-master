@@ -60,6 +60,9 @@ public class AuthController {
                 token,
                 user.getUsername(),
                 user.getFullName(),
+                user.getEmail(),
+                user.getContactNumber(),
+                user.getAddress(),
                 user.getRole().name(),
                 "Login successful"
             );
@@ -92,6 +95,8 @@ public class AuthController {
             newUser.setPassword(passwordEncoder.encode(request.getPassword()));
             newUser.setFullName(request.getFullName());
             newUser.setEmail(request.getEmail());
+            newUser.setContactNumber(request.getContactNumber());
+            newUser.setAddress(request.getAddress());
             newUser.setRole(UserRole.GUEST);
             
             User savedUser = userService.createUser(newUser);
@@ -103,6 +108,9 @@ public class AuthController {
                 token,
                 savedUser.getUsername(),
                 savedUser.getFullName(),
+                savedUser.getEmail(),
+                savedUser.getContactNumber(),
+                savedUser.getAddress(),
                 savedUser.getRole().name(),
                 "Registration successful"
             );

@@ -30,6 +30,10 @@ public class User {
     
     private String email;
     
+    private String contactNumber;
+    
+    private String address;
+    
     @Enumerated(EnumType.STRING)
     private UserRole role;
     
@@ -50,6 +54,22 @@ public class User {
         this.role = role;
         this.active = active;
         this.createdAt = createdAt;
+    }
+    
+    public String getContactNumber() {
+        return contactNumber;
+    }
+    
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+    
+    public String getAddress() {
+        return address;
+    }
+    
+    public void setAddress(String address) {
+        this.address = address;
     }
     
     public Long getId() {

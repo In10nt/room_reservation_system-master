@@ -1,8 +1,8 @@
 // EmailJS Configuration
 // Replace these with your EmailJS credentials from https://www.emailjs.com/
-const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY_HERE'; 
-const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID_HERE';
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID_HERE';
+const EMAILJS_PUBLIC_KEY = 'KNbxeKMVPoi2pxoqa';
+const EMAILJS_SERVICE_ID = 'service_5ocwwbk';
+const EMAILJS_TEMPLATE_ID = 'template_ypgz73l';
 
 // Initialize EmailJS when page loads
 document.addEventListener('DOMContentLoaded', function() {

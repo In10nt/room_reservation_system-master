@@ -76,6 +76,9 @@ document.getElementById('registerForm').addEventListener('submit', async functio
             localStorage.setItem('token', data.data.token);
             localStorage.setItem('username', data.data.username);
             localStorage.setItem('fullName', data.data.fullName);
+            localStorage.setItem('email', data.data.email || '');
+            localStorage.setItem('contactNumber', data.data.contactNumber || '');
+            localStorage.setItem('address', data.data.address || '');
             localStorage.setItem('role', data.data.role);
             
             successMessage.textContent = 'Registration successful! Redirecting...';

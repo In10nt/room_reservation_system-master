@@ -51,14 +51,32 @@ function showGuestInfo() {
 // Pre-fill user data in booking form
 function prefillUserData() {
     const fullName = localStorage.getItem('fullName');
-    const username = localStorage.getItem('username');
+    const email = localStorage.getItem('email');
+    const contactNumber = localStorage.getItem('contactNumber');
+    const address = localStorage.getItem('address');
     
     // Wait for form to be available
     setTimeout(() => {
         const guestNameField = document.getElementById('guestName');
+        const emailField = document.getElementById('email');
+        const contactField = document.getElementById('contactNumber');
+        const addressField = document.getElementById('address');
+        
         if (guestNameField && fullName) {
             guestNameField.value = fullName;
             guestNameField.readOnly = true;
+        }
+        
+        if (emailField && email) {
+            emailField.value = email;
+        }
+        
+        if (contactField && contactNumber) {
+            contactField.value = contactNumber;
+        }
+        
+        if (addressField && address) {
+            addressField.value = address;
         }
     }, 100);
 }
@@ -68,6 +86,9 @@ function guestLogout() {
     localStorage.removeItem('token');
     localStorage.removeItem('username');
     localStorage.removeItem('fullName');
+    localStorage.removeItem('email');
+    localStorage.removeItem('contactNumber');
+    localStorage.removeItem('address');
     localStorage.removeItem('role');
     window.location.href = 'book.html';
 }

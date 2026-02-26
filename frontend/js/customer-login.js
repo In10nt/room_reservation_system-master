@@ -49,6 +49,9 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
             localStorage.setItem('token', data.data.token);
             localStorage.setItem('username', data.data.username);
             localStorage.setItem('fullName', data.data.fullName);
+            localStorage.setItem('email', data.data.email || '');
+            localStorage.setItem('contactNumber', data.data.contactNumber || '');
+            localStorage.setItem('address', data.data.address || '');
             localStorage.setItem('role', data.data.role);
             
             // Check if there's a return URL or room type in the URL
