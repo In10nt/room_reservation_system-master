@@ -74,7 +74,7 @@
                     <div class="carousel-overlay">
                         <h1 class="carousel-title">Welcome to Paradise</h1>
                         <p class="carousel-subtitle">Experience luxury beachfront living at Ocean View Resort</p>
-                        <a href="#booking" class="btn-hero">Book Your Stay</a>
+                        <a href="#rooms" class="btn-hero">Book Your Stay</a>
                     </div>
                 </div>
                 <div class="carousel-slide">
@@ -90,7 +90,7 @@
                     <div class="carousel-overlay">
                         <h1 class="carousel-title">Your Dream Escape</h1>
                         <p class="carousel-subtitle">Create unforgettable memories in our tropical paradise</p>
-                        <a href="#booking" class="btn-hero">Reserve Now</a>
+                        <a href="#rooms" class="btn-hero">Reserve Now</a>
                     </div>
                 </div>
                 <div class="carousel-slide">
@@ -376,6 +376,21 @@
 
     <script src="js/customer.js"></script>
     <script>
+        // Smooth scroll to rooms section when clicking hero buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add smooth scroll to all #rooms links
+            const roomLinks = document.querySelectorAll('a[href="#rooms"]');
+            roomLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const roomsSection = document.getElementById('rooms');
+                    if (roomsSection) {
+                        roomsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+        });
+
         // Scroll to top functionality
         window.onscroll = function() {
             const scrollBtn = document.getElementById('scrollToTop');
