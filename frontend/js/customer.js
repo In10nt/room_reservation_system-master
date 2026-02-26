@@ -712,11 +712,16 @@ window.addEventListener('scroll', () => {
 // ============================================
 let roomsAutoScrollInterval;
 let currentRoomIndex = 0;
+let isUserScrolling = false;
+let scrollTimeout;
 
 function scrollRooms(direction) {
     const carousel = document.getElementById('roomsCarousel');
-    const cardWidth = 380 + 32; // card width + gap
-    const scrollAmount = cardWidth * direction;
+    if (!carousel) return;
+    
+    const cardWidth = carousel.querySelector('.room-card').offsetWidth;
+    const gap = 32; // gap between cards
+    const scrollAmount = (cardWidth + gap) * direction;
     
     carousel.scrollBy({
         left: scrollAmount,
@@ -725,17 +730,19 @@ function scrollRooms(direction) {
 }
 
 function autoScrollRooms() {
+    if (isUserScrolling) return;
+    
     const carousel = document.getElementById('roomsCarousel');
     if (!carousel) return;
     
-    const cardWidth = 380 + 32; // card width + gap
-    const totalCards = carousel.children.length;
+    const cardWidth = carousel.querySelector('.room-card').offsetWidth;
+    const gap = 32;
     const maxScroll = carousel.scrollWidth - carousel.clientWidth;
     
     currentRoomIndex++;
     
     // Reset to beginning if reached the end
-    if (currentRoomIndex >= totalCards) {
+    if (carousel.scrollLeft >= maxScroll - 10) {
         currentRoomIndex = 0;
         carousel.scrollTo({
             left: 0,
@@ -743,15 +750,17 @@ function autoScrollRooms() {
         });
     } else {
         carousel.scrollBy({
-            left: cardWidth,
+            left: cardWidth + gap,
             behavior: 'smooth'
         });
     }
 }
 
 function startRoomsAutoScroll() {
-    // Auto-scroll every 4 seconds
-    roomsAutoScrollInterval = setInterval(autoScrollRooms, 4000);
+    // Only auto-scroll on desktop
+    if (window.innerWidth > 768) {
+        roomsAutoScrollInterval = setInterval(autoScrollRooms, 4000);
+    }
 }
 
 function stopRoomsAutoScroll() {
@@ -763,63 +772,61 @@ document.addEventListener('DOMContentLoaded', function() {
     const roomsCarousel = document.getElementById('roomsCarousel');
     if (!roomsCarousel) return;
     
-    // Start auto-scrolling
-    startRoomsAutoScroll();
+    // Start auto-scrolling only on desktop
+    if (window.innerWidth > 768) {
+        startRoomsAutoScroll();
+        
+        // Pause auto-scroll on hover (desktop only)
+        roomsCarousel.addEventListener('mouseenter', stopRoomsAutoScroll);
+        roomsCarousel.addEventListener('mouseleave', startRoomsAutoScroll);
+    }
     
-    // Pause auto-scroll on hover
-    roomsCarousel.addEventListener('mouseenter', stopRoomsAutoScroll);
-    roomsCarousel.addEventListener('mouseleave', startRoomsAutoScroll);
-    
-    let startX = 0;
-    let scrollLeft = 0;
-    let isDown = false;
-    
-    roomsCarousel.addEventListener('mousedown', (e) => {
-        isDown = true;
-        startX = e.pageX - roomsCarousel.offsetLeft;
-        scrollLeft = roomsCarousel.scrollLeft;
-        roomsCarousel.style.cursor = 'grabbing';
-        stopRoomsAutoScroll();
-    });
-    
-    roomsCarousel.addEventListener('mouseleave', () => {
-        isDown = false;
-        roomsCarousel.style.cursor = 'grab';
-    });
-    
-    roomsCarousel.addEventListener('mouseup', () => {
-        isDown = false;
-        roomsCarousel.style.cursor = 'grab';
-        setTimeout(startRoomsAutoScroll, 3000); // Resume after 3 seconds
-    });
-    
-    roomsCarousel.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - roomsCarousel.offsetLeft;
-        const walk = (x - startX) * 2;
-        roomsCarousel.scrollLeft = scrollLeft - walk;
-    });
-    
-    // Touch support
-    let touchStartX = 0;
-    let touchScrollLeft = 0;
-    
-    roomsCarousel.addEventListener('touchstart', (e) => {
-        touchStartX = e.touches[0].pageX;
-        touchScrollLeft = roomsCarousel.scrollLeft;
-        stopRoomsAutoScroll();
+    // Detect user scrolling
+    roomsCarousel.addEventListener('scroll', () => {
+        isUserScrolling = true;
+        clearTimeout(scrollTimeout);
+        
+        scrollTimeout = setTimeout(() => {
+            isUserScrolling = false;
+        }, 150);
     }, { passive: true });
     
-    roomsCarousel.addEventListener('touchmove', (e) => {
-        const touchX = e.touches[0].pageX;
-        const walk = (touchStartX - touchX) * 1.5;
-        roomsCarousel.scrollLeft = touchScrollLeft + walk;
-    }, { passive: true });
+    // Desktop drag scrolling
+    if (window.innerWidth > 768) {
+        let startX = 0;
+        let scrollLeft = 0;
+        let isDown = false;
+        
+        roomsCarousel.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - roomsCarousel.offsetLeft;
+            scrollLeft = roomsCarousel.scrollLeft;
+            roomsCarousel.style.cursor = 'grabbing';
+            stopRoomsAutoScroll();
+        });
+        
+        roomsCarousel.addEventListener('mouseleave', () => {
+            isDown = false;
+            roomsCarousel.style.cursor = 'grab';
+        });
+        
+        roomsCarousel.addEventListener('mouseup', () => {
+            isDown = false;
+            roomsCarousel.style.cursor = 'grab';
+            setTimeout(startRoomsAutoScroll, 3000);
+        });
+        
+        roomsCarousel.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - roomsCarousel.offsetLeft;
+            const walk = (x - startX) * 2;
+            roomsCarousel.scrollLeft = scrollLeft - walk;
+        });
+    }
     
-    roomsCarousel.addEventListener('touchend', () => {
-        setTimeout(startRoomsAutoScroll, 3000); // Resume after 3 seconds
-    }, { passive: true });
+    // Mobile: Smooth native scrolling with snap points (already handled by CSS)
+    // No additional JavaScript needed for mobile - CSS scroll-snap handles it
 });
 
 
