@@ -1,6 +1,6 @@
 // EmailJS Configuration
 // Replace these with your EmailJS credentials from https://www.emailjs.com/
-const EMAILJS_PUBLIC_KEY = '5I8uhcZ-BI1pEs5SH';
+const EMAILJS_PUBLIC_KEY = 'W5xkyvnZYjv1Bk4zf';
 const EMAILJS_SERVICE_ID = 'service_5ocwwbk';
 const EMAILJS_TEMPLATE_ID = 'template_ypgz73l';
 
