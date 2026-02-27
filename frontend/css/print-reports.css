@@ -1,0 +1,172 @@
+/* Print Styles for Reports Page */
+@media print {
+    /* Hide everything first */
+    * {
+        visibility: hidden;
+    }
+    
+    /* Show only main content and its children */
+    .main-content,
+    .main-content * {
+        visibility: visible !important;
+    }
+    
+    /* Hide navigation and buttons */
+    .navbar,
+    .sidebar,
+    .btn,
+    button,
+    .form-actions,
+    .report-actions,
+    .dark-mode-toggle-admin,
+    .nav-user {
+        display: none !important;
+        visibility: hidden !important;
+    }
+    
+    /* Reset body */
+    body {
+        background: white !important;
+        color: black !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Container full width */
+    .container {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Main content positioning */
+    .main-content {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        margin: 0 !important;
+        padding: 15px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* Headers */
+    .main-content h1 {
+        font-size: 18pt !important;
+        margin-bottom: 10px !important;
+        color: black !important;
+    }
+    
+    .main-content h2 {
+        font-size: 12pt !important;
+        margin-top: 10px !important;
+        margin-bottom: 8px !important;
+        color: black !important;
+        border-bottom: 1px solid #333 !important;
+        padding-bottom: 3px !important;
+    }
+    
+    /* Statistics grid */
+    .stats-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 5px !important;
+        margin-bottom: 10px !important;
+    }
+    
+    .stat-card {
+        border: 1px solid #333 !important;
+        padding: 5px !important;
+        text-align: center !important;
+        background: white !important;
+    }
+    
+    .stat-card h3 {
+        font-size: 14pt !important;
+        color: #000 !important;
+        margin: 2px 0 !important;
+    }
+    
+    .stat-card p {
+        font-size: 8pt !important;
+        color: #333 !important;
+        margin: 0 !important;
+    }
+    
+    /* Tables */
+    .table-container {
+        width: 100% !important;
+        overflow: visible !important;
+        margin-bottom: 10px !important;
+    }
+    
+    table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        font-size: 6pt !important;
+    }
+    
+    th {
+        background: #333 !important;
+        color: white !important;
+        padding: 4px 2px !important;
+        text-align: left !important;
+        font-weight: bold !important;
+        border: 1px solid #333 !important;
+        font-size: 7pt !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    
+    td {
+        padding: 3px 2px !important;
+        border: 1px solid #999 !important;
+        color: black !important;
+        background: white !important;
+        font-size: 6pt !important;
+        word-wrap: break-word !important;
+    }
+    
+    /* Status badges */
+    .status-badge {
+        padding: 1px 3px !important;
+        border-radius: 2px !important;
+        font-size: 6pt !important;
+        font-weight: bold !important;
+        display: inline-block !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    
+    .status-confirmed {
+        background: #e3f2fd !important;
+        color: #1976d2 !important;
+        border: 1px solid #1976d2 !important;
+    }
+    
+    .status-checked-in {
+        background: #e8f5e9 !important;
+        color: #388e3c !important;
+        border: 1px solid #388e3c !important;
+    }
+    
+    .status-checked-out {
+        background: #f3e5f5 !important;
+        color: #7b1fa2 !important;
+        border: 1px solid #7b1fa2 !important;
+    }
+    
+    .status-cancelled {
+        background: #ffebee !important;
+        color: #c62828 !important;
+        border: 1px solid #c62828 !important;
+    }
+    
+    /* Page settings */
+    @page {
+        margin: 0.5cm;
+        size: A4 landscape;
+    }
+}
