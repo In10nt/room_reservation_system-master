@@ -982,16 +982,203 @@ body {
 
 /* Print Styles */
 @media print {
+    /* Hide navigation and buttons */
     .navbar,
     .sidebar,
     .btn,
     .form-actions,
-    .report-actions {
+    .report-actions,
+    .dark-mode-toggle-admin,
+    .nav-user,
+    button {
         display: none !important;
     }
     
-    .main-content {
+    /* Reset body and container */
+    body {
+        background: white !important;
+        color: black !important;
+        margin: 0;
         padding: 0;
+    }
+    
+    .container {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Make main content full width */
+    .main-content {
+        margin: 0 !important;
+        padding: 20px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* Print header */
+    .main-content h1 {
+        font-size: 24pt;
+        margin-bottom: 10px;
+        color: black !important;
+        page-break-after: avoid;
+    }
+    
+    /* Report sections */
+    .report-section {
+        page-break-inside: avoid;
+        margin-bottom: 20px;
+    }
+    
+    .report-section h2 {
+        font-size: 18pt;
+        margin-top: 15px;
+        margin-bottom: 10px;
+        color: black !important;
+        border-bottom: 2px solid #333;
+        padding-bottom: 5px;
+        page-break-after: avoid;
+    }
+    
+    /* Statistics cards */
+    .stats-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 10px !important;
+        margin-bottom: 20px;
+    }
+    
+    .stat-card {
+        border: 1px solid #ddd !important;
+        padding: 10px !important;
+        text-align: center;
+        background: white !important;
+        page-break-inside: avoid;
+    }
+    
+    .stat-card h3 {
+        font-size: 20pt !important;
+        color: #333 !important;
+        margin: 5px 0 !important;
+    }
+    
+    .stat-card p {
+        font-size: 10pt !important;
+        color: #666 !important;
+        margin: 0 !important;
+    }
+    
+    /* Tables */
+    .table-container {
+        width: 100% !important;
+        overflow: visible !important;
+        margin-bottom: 20px;
+    }
+    
+    table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        font-size: 9pt !important;
+        page-break-inside: auto;
+    }
+    
+    thead {
+        display: table-header-group;
+        background: #f0f0f0 !important;
+    }
+    
+    tbody {
+        display: table-row-group;
+    }
+    
+    tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
+    
+    th {
+        background: #333 !important;
+        color: white !important;
+        padding: 8px 4px !important;
+        text-align: left !important;
+        font-weight: bold !important;
+        border: 1px solid #333 !important;
+        font-size: 9pt !important;
+    }
+    
+    td {
+        padding: 6px 4px !important;
+        border: 1px solid #ddd !important;
+        color: black !important;
+        background: white !important;
+        font-size: 8pt !important;
+    }
+    
+    /* Status badges */
+    .status-badge {
+        padding: 2px 6px !important;
+        border-radius: 3px !important;
+        font-size: 8pt !important;
+        font-weight: bold !important;
+        display: inline-block !important;
+    }
+    
+    .status-confirmed {
+        background: #e3f2fd !important;
+        color: #1976d2 !important;
+        border: 1px solid #1976d2 !important;
+    }
+    
+    .status-checked-in {
+        background: #e8f5e9 !important;
+        color: #388e3c !important;
+        border: 1px solid #388e3c !important;
+    }
+    
+    .status-checked-out {
+        background: #f3e5f5 !important;
+        color: #7b1fa2 !important;
+        border: 1px solid #7b1fa2 !important;
+    }
+    
+    .status-cancelled {
+        background: #ffebee !important;
+        color: #c62828 !important;
+        border: 1px solid #c62828 !important;
+    }
+    
+    /* Page header for each page */
+    @page {
+        margin: 1cm;
+        size: A4 landscape;
+    }
+    
+    /* Add report header on first page */
+    .main-content::before {
+        content: "Ocean View Resort - Management Report";
+        display: block;
+        text-align: center;
+        font-size: 20pt;
+        font-weight: bold;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 3px solid #333;
+    }
+    
+    /* Add page numbers */
+    @page {
+        @bottom-right {
+            content: "Page " counter(page) " of " counter(pages);
+        }
+    }
+    
+    /* Ensure all content is visible */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
     }
 }
 
