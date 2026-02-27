@@ -557,4 +557,42 @@ async function downloadDetailedReport() {
 // Load reports on page load
 document.addEventListener('DOMContentLoaded', function() {
     loadReports();
+    setReportDateTime();
+});
+
+// Set report date and time
+function setReportDateTime() {
+    const now = new Date();
+    const dateOptions = { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+    };
+    const formattedDateTime = now.toLocaleString('en-US', dateOptions);
+    
+    const dateTimeElement = document.getElementById('reportDateTime');
+    if (dateTimeElement) {
+        dateTimeElement.textContent = formattedDateTime;
+    }
+}
+
+// Show date/time before printing
+window.addEventListener('beforeprint', function() {
+    const reportInfo = document.getElementById('reportGeneratedInfo');
+    if (reportInfo) {
+        reportInfo.style.display = 'block';
+    }
+    setReportDateTime(); // Update to current time
+});
+
+// Hide date/time after printing
+window.addEventListener('afterprint', function() {
+    const reportInfo = document.getElementById('reportGeneratedInfo');
+    if (reportInfo) {
+        reportInfo.style.display = 'none';
+    }
 });

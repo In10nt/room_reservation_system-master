@@ -59,6 +59,17 @@
         color: black !important;
     }
     
+    /* Report generation info */
+    #reportGeneratedInfo {
+        display: block !important;
+        visibility: visible !important;
+        font-size: 9pt !important;
+        color: #333 !important;
+        margin-bottom: 10px !important;
+        border-bottom: 1px solid #333 !important;
+        padding-bottom: 5px !important;
+    }
+    
     .main-content h2 {
         font-size: 12pt !important;
         margin-top: 10px !important;
