@@ -986,20 +986,22 @@ body {
     .navbar,
     .sidebar,
     .btn,
+    button,
     .form-actions,
     .report-actions,
     .dark-mode-toggle-admin,
-    .nav-user,
-    button {
+    .nav-user {
         display: none !important;
+        visibility: hidden !important;
     }
     
-    /* Reset body and container */
+    /* Show main content */
     body {
         background: white !important;
         color: black !important;
-        margin: 0;
-        padding: 0;
+        margin: 0 !important;
+        padding: 0 !important;
+        visibility: visible !important;
     }
     
     .container {
@@ -1008,121 +1010,149 @@ body {
         max-width: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
+        visibility: visible !important;
     }
     
-    /* Make main content full width */
+    /* Make main content visible and full width */
     .main-content {
+        display: block !important;
+        visibility: visible !important;
         margin: 0 !important;
-        padding: 20px !important;
+        margin-left: 0 !important;
+        padding: 15px !important;
         width: 100% !important;
         max-width: 100% !important;
     }
     
+    /* Ensure all report content is visible */
+    .main-content * {
+        visibility: visible !important;
+    }
+    
     /* Print header */
     .main-content h1 {
-        font-size: 24pt;
-        margin-bottom: 10px;
+        font-size: 20pt !important;
+        margin-bottom: 10px !important;
         color: black !important;
-        page-break-after: avoid;
+        page-break-after: avoid !important;
+        visibility: visible !important;
     }
     
     /* Report sections */
     .report-section {
         page-break-inside: avoid;
-        margin-bottom: 20px;
+        margin-bottom: 15px !important;
+        visibility: visible !important;
     }
     
     .report-section h2 {
-        font-size: 18pt;
-        margin-top: 15px;
-        margin-bottom: 10px;
+        font-size: 14pt !important;
+        margin-top: 10px !important;
+        margin-bottom: 8px !important;
         color: black !important;
-        border-bottom: 2px solid #333;
-        padding-bottom: 5px;
-        page-break-after: avoid;
+        border-bottom: 2px solid #333 !important;
+        padding-bottom: 3px !important;
+        page-break-after: avoid !important;
+        visibility: visible !important;
     }
     
     /* Statistics cards */
     .stats-grid {
         display: grid !important;
         grid-template-columns: repeat(4, 1fr) !important;
-        gap: 10px !important;
-        margin-bottom: 20px;
+        gap: 8px !important;
+        margin-bottom: 15px !important;
+        visibility: visible !important;
     }
     
     .stat-card {
-        border: 1px solid #ddd !important;
-        padding: 10px !important;
-        text-align: center;
+        border: 1px solid #333 !important;
+        padding: 8px !important;
+        text-align: center !important;
         background: white !important;
-        page-break-inside: avoid;
+        page-break-inside: avoid !important;
+        visibility: visible !important;
     }
     
     .stat-card h3 {
-        font-size: 20pt !important;
-        color: #333 !important;
-        margin: 5px 0 !important;
+        font-size: 16pt !important;
+        color: #000 !important;
+        margin: 3px 0 !important;
+        visibility: visible !important;
     }
     
     .stat-card p {
-        font-size: 10pt !important;
-        color: #666 !important;
+        font-size: 9pt !important;
+        color: #333 !important;
         margin: 0 !important;
+        visibility: visible !important;
     }
     
     /* Tables */
     .table-container {
         width: 100% !important;
         overflow: visible !important;
-        margin-bottom: 20px;
+        margin-bottom: 15px !important;
+        visibility: visible !important;
     }
     
     table {
         width: 100% !important;
         border-collapse: collapse !important;
-        font-size: 9pt !important;
-        page-break-inside: auto;
+        font-size: 7pt !important;
+        page-break-inside: auto !important;
+        visibility: visible !important;
     }
     
     thead {
-        display: table-header-group;
-        background: #f0f0f0 !important;
+        display: table-header-group !important;
+        visibility: visible !important;
     }
     
     tbody {
-        display: table-row-group;
+        display: table-row-group !important;
+        visibility: visible !important;
     }
     
     tr {
-        page-break-inside: avoid;
-        page-break-after: auto;
+        page-break-inside: avoid !important;
+        page-break-after: auto !important;
+        visibility: visible !important;
     }
     
     th {
         background: #333 !important;
         color: white !important;
-        padding: 8px 4px !important;
+        padding: 6px 3px !important;
         text-align: left !important;
         font-weight: bold !important;
         border: 1px solid #333 !important;
-        font-size: 9pt !important;
+        font-size: 8pt !important;
+        visibility: visible !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
     }
     
     td {
-        padding: 6px 4px !important;
-        border: 1px solid #ddd !important;
+        padding: 4px 3px !important;
+        border: 1px solid #999 !important;
         color: black !important;
         background: white !important;
-        font-size: 8pt !important;
+        font-size: 7pt !important;
+        visibility: visible !important;
+        word-wrap: break-word !important;
     }
     
     /* Status badges */
     .status-badge {
-        padding: 2px 6px !important;
-        border-radius: 3px !important;
-        font-size: 8pt !important;
+        padding: 2px 4px !important;
+        border-radius: 2px !important;
+        font-size: 7pt !important;
         font-weight: bold !important;
         display: inline-block !important;
+        visibility: visible !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
     }
     
     .status-confirmed {
@@ -1149,32 +1179,13 @@ body {
         border: 1px solid #c62828 !important;
     }
     
-    /* Page header for each page */
+    /* Page settings */
     @page {
-        margin: 1cm;
+        margin: 0.5cm;
         size: A4 landscape;
     }
     
-    /* Add report header on first page */
-    .main-content::before {
-        content: "Ocean View Resort - Management Report";
-        display: block;
-        text-align: center;
-        font-size: 20pt;
-        font-weight: bold;
-        margin-bottom: 10px;
-        padding-bottom: 10px;
-        border-bottom: 3px solid #333;
-    }
-    
-    /* Add page numbers */
-    @page {
-        @bottom-right {
-            content: "Page " counter(page) " of " counter(pages);
-        }
-    }
-    
-    /* Ensure all content is visible */
+    /* Ensure colors print */
     * {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
