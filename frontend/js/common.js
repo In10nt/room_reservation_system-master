@@ -120,10 +120,46 @@ function calculateTotalAmount(roomType, checkIn, checkOut) {
     return nights * rate;
 }
 
+// Apply role-based menu access
+function applyRoleBasedAccess() {
+    const role = localStorage.getItem('role');
+    if (!role) return;
+    
+    // Get all menu items
+    const menuItems = document.querySelectorAll('.sidebar .menu li');
+    
+    // Define menu access for each role
+    const roleAccess = {
+        'ADMIN': ['help.html'], // Only Help
+        'MANAGER': ['dashboard.html', 'reports.html', 'help.html'], // Dashboard, Reports, Help
+        'RECEPTIONIST': ['dashboard.html', 'add-reservation.html', 'view-reservations.html', 'search-reservation.html', 'help.html'] // Dashboard, New Reservation, View Reservations, Search, Help
+    };
+    
+    const allowedPages = roleAccess[role] || [];
+    
+    // Hide/show menu items based on role
+    menuItems.forEach(item => {
+        const link = item.querySelector('a');
+        if (link) {
+            const href = link.getAttribute('href');
+            
+            // Check if this page is allowed for the current role
+            const isAllowed = allowedPages.some(page => href.includes(page));
+            
+            if (isAllowed) {
+                item.style.display = '';
+            } else {
+                item.style.display = 'none';
+            }
+        }
+    });
+}
+
 // Initialize page (check auth on page load)
 document.addEventListener('DOMContentLoaded', function() {
     // Only check auth if not on login page
     if (!window.location.pathname.includes('login.html')) {
         checkAuth();
+        applyRoleBasedAccess();
     }
 });
