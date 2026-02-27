@@ -5,6 +5,7 @@ import com.oceanview.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
  * Creates default users on application startup
  */
 @Component
+@Order(1) // Run first before ReservationDataInitializer
 public class DataInitializer implements CommandLineRunner {
     
     private static final Logger log = LoggerFactory.getLogger(DataInitializer.class);
