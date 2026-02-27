@@ -43,7 +43,7 @@ function showNoDataMessage() {
     const tbody = document.getElementById('recentReservations');
     tbody.innerHTML = `
         <tr>
-            <td colspan="11" style="text-align: center; padding: 2rem; color: #666;">
+            <td colspan="13" style="text-align: center; padding: 2rem; color: #666;">
                 <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom: 1rem;">
                     <circle cx="12" cy="12" r="10"></circle>
                     <line x1="12" y1="8" x2="12" y2="12"></line>
@@ -78,7 +78,7 @@ function showErrorMessage(message) {
     const tbody = document.getElementById('recentReservations');
     tbody.innerHTML = `
         <tr>
-            <td colspan="11" style="text-align: center; padding: 2rem; color: #e74c3c;">
+            <td colspan="13" style="text-align: center; padding: 2rem; color: #e74c3c;">
                 <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom: 1rem;">
                     <circle cx="12" cy="12" r="10"></circle>
                     <line x1="15" y1="9" x2="9" y2="15"></line>
@@ -152,13 +152,15 @@ function displayRecentReservations(reservations) {
         row.innerHTML = `
             <td>${reservation.reservationNumber}</td>
             <td>${reservation.guestName}</td>
-            <td>${reservation.email}</td>
+            <td>${reservation.address || 'N/A'}</td>
+            <td>${reservation.email || 'N/A'}</td>
             <td>${reservation.contactNumber}</td>
             <td>${reservation.roomType}</td>
             <td>${formatDate(reservation.checkInDate)}</td>
             <td>${formatDate(reservation.checkOutDate)}</td>
             <td>${reservation.numberOfNights}</td>
-            <td>${reservation.numberOfGuests}</td>
+            <td>${reservation.numberOfGuests || 'N/A'}</td>
+            <td>${reservation.specialRequests || 'None'}</td>
             <td>${formatCurrency(reservation.totalAmount)}</td>
             <td>${getStatusBadge(reservation.status)}</td>
         `;
@@ -166,7 +168,213 @@ function displayRecentReservations(reservations) {
     });
     
     // Update total count
-    document.getElementById('totalReservationsCount').textContent = sortedReservations.length;
+    document.getElementById('totalReservationsCount').textContent = `(${sortedReservations.length})`;
+}
+
+// Download report as PDF
+function downloadPDF() {
+    console.log('Downloading report as PDF...');
+    
+    // Use browser's print to PDF functionality
+    // This is the most reliable cross-browser method
+    alert('To save as PDF:\n\n1. Click OK\n2. In the print dialog, select "Save as PDF" or "Microsoft Print to PDF"\n3. Choose save location\n4. Click Save');
+    
+    window.print();
+}
+
+// Download report as Excel
+async function downloadExcel() {
+    console.log('Downloading report as Excel...');
+    
+    try {
+        const response = await fetch(`${API_BASE_URL}/reservations`, {
+            headers: getAuthHeaders()
+        });
+        
+        if (response.ok) {
+            const data = await response.json();
+            const reservations = data.data || [];
+            
+            if (reservations.length === 0) {
+                alert('No data to download');
+                return;
+            }
+            
+            // Calculate statistics
+            const total = reservations.length;
+            const confirmed = reservations.filter(r => r.status === 'CONFIRMED').length;
+            const checkedIn = reservations.filter(r => r.status === 'CHECKED_IN').length;
+            const checkedOut = reservations.filter(r => r.status === 'CHECKED_OUT').length;
+            const cancelled = reservations.filter(r => r.status === 'CANCELLED').length;
+            
+            // Calculate revenue by room type
+            const revenueByType = {};
+            const countByType = {};
+            let totalRevenue = 0;
+            
+            reservations.forEach(reservation => {
+                const roomType = reservation.roomType;
+                const amount = reservation.totalAmount || 0;
+                totalRevenue += amount;
+                
+                if (!revenueByType[roomType]) {
+                    revenueByType[roomType] = 0;
+                    countByType[roomType] = 0;
+                }
+                
+                revenueByType[roomType] += amount;
+                countByType[roomType]++;
+            });
+            
+            // Create Excel-compatible HTML
+            let htmlContent = `
+                <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
+                <head>
+                    <meta charset="utf-8">
+                    <!--[if gte mso 9]>
+                    <xml>
+                        <x:ExcelWorkbook>
+                            <x:ExcelWorksheets>
+                                <x:ExcelWorksheet>
+                                    <x:Name>Ocean View Report</x:Name>
+                                    <x:WorksheetOptions>
+                                        <x:DisplayGridlines/>
+                                    </x:WorksheetOptions>
+                                </x:ExcelWorksheet>
+                            </x:ExcelWorksheets>
+                        </x:ExcelWorkbook>
+                    </xml>
+                    <![endif]-->
+                    <style>
+                        table { border-collapse: collapse; width: 100%; }
+                        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                        th { background-color: #667eea; color: white; font-weight: bold; }
+                        .header { font-size: 18pt; font-weight: bold; margin-bottom: 10px; }
+                        .section-title { font-size: 14pt; font-weight: bold; margin-top: 20px; margin-bottom: 10px; background-color: #f0f0f0; padding: 5px; }
+                        .stat-table td { background-color: #f9f9f9; }
+                    </style>
+                </head>
+                <body>
+                    <div class="header">Ocean View Resort - Management Report</div>
+                    <div>Generated on: ${new Date().toLocaleDateString('en-GB')}</div>
+                    <br>
+                    
+                    <div class="section-title">RESERVATION STATISTICS</div>
+                    <table class="stat-table">
+                        <tr><td><b>Total Bookings</b></td><td>${total}</td></tr>
+                        <tr><td><b>Confirmed</b></td><td>${confirmed}</td></tr>
+                        <tr><td><b>Checked In</b></td><td>${checkedIn}</td></tr>
+                        <tr><td><b>Checked Out</b></td><td>${checkedOut}</td></tr>
+                        <tr><td><b>Cancelled</b></td><td>${cancelled}</td></tr>
+                    </table>
+                    <br>
+                    
+                    <div class="section-title">REVENUE SUMMARY</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Room Type</th>
+                                <th>Bookings</th>
+                                <th>Total Revenue (LKR)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            Object.keys(revenueByType).forEach(roomType => {
+                htmlContent += `
+                    <tr>
+                        <td>${roomType}</td>
+                        <td>${countByType[roomType]}</td>
+                        <td>${revenueByType[roomType].toFixed(2)}</td>
+                    </tr>
+                `;
+            });
+            
+            htmlContent += `
+                            <tr style="background-color: #f0f0f0; font-weight: bold;">
+                                <td>TOTAL</td>
+                                <td>${total}</td>
+                                <td>${totalRevenue.toFixed(2)}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    
+                    <div class="section-title">ALL RESERVATIONS</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Reservation #</th>
+                                <th>Guest Name</th>
+                                <th>Address</th>
+                                <th>Email</th>
+                                <th>Contact</th>
+                                <th>Room Type</th>
+                                <th>Check-in</th>
+                                <th>Check-out</th>
+                                <th>Nights</th>
+                                <th>Guests</th>
+                                <th>Special Requests</th>
+                                <th>Amount (LKR)</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            // Sort by ID descending
+            const sortedReservations = [...reservations].sort((a, b) => b.id - a.id);
+            
+            sortedReservations.forEach(reservation => {
+                htmlContent += `
+                    <tr>
+                        <td>${reservation.reservationNumber}</td>
+                        <td>${reservation.guestName}</td>
+                        <td>${reservation.address || 'N/A'}</td>
+                        <td>${reservation.email || 'N/A'}</td>
+                        <td>${reservation.contactNumber}</td>
+                        <td>${reservation.roomType}</td>
+                        <td>${formatDate(reservation.checkInDate)}</td>
+                        <td>${formatDate(reservation.checkOutDate)}</td>
+                        <td>${reservation.numberOfNights}</td>
+                        <td>${reservation.numberOfGuests || 'N/A'}</td>
+                        <td>${reservation.specialRequests || 'None'}</td>
+                        <td>${reservation.totalAmount.toFixed(2)}</td>
+                        <td>${reservation.status}</td>
+                    </tr>
+                `;
+            });
+            
+            htmlContent += `
+                        </tbody>
+                    </table>
+                </body>
+                </html>
+            `;
+            
+            // Create blob and download
+            const blob = new Blob([htmlContent], { type: 'application/vnd.ms-excel' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            
+            const downloadDate = new Date().toISOString().split('T')[0];
+            link.setAttribute('href', url);
+            link.setAttribute('download', `Ocean_View_Resort_Report_${downloadDate}.xls`);
+            link.style.visibility = 'hidden';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            console.log('Excel download initiated');
+        } else {
+            alert('Failed to load data for report');
+        }
+    } catch (error) {
+        console.error('Error downloading Excel:', error);
+        alert('Failed to download Excel report. Please try again.');
+    }
 }
 
 // Print report
@@ -187,8 +395,8 @@ function downloadReportCSV() {
         return;
     }
     
-    // Create CSV content
-    let csvContent = 'Reservation Number,Guest Name,Email,Contact Number,Room Type,Check-in Date,Check-out Date,Nights,Guests,Total Amount,Status\n';
+    // Create CSV content with ALL fields
+    let csvContent = 'Reservation Number,Guest Name,Address,Email,Contact Number,Room Type,Check-in Date,Check-out Date,Nights,Guests,Special Requests,Total Amount,Status\n';
     
     rows.forEach(row => {
         const cells = row.querySelectorAll('td');
@@ -198,7 +406,7 @@ function downloadReportCSV() {
                 // Skip the status badge HTML, get text only
                 let text = cell.textContent.trim();
                 // Escape commas and quotes
-                if (text.includes(',') || text.includes('"')) {
+                if (text.includes(',') || text.includes('"') || text.includes('\n')) {
                     text = '"' + text.replace(/"/g, '""') + '"';
                 }
                 rowData.push(text);
@@ -288,7 +496,7 @@ async function downloadDetailedReport() {
             csvContent += `TOTAL REVENUE,,LKR ${totalRevenue.toFixed(2)}\n\n`;
             
             csvContent += `ALL RESERVATIONS\n`;
-            csvContent += `Reservation Number,Guest Name,Email,Contact Number,Room Type,Check-in Date,Check-out Date,Nights,Guests,Total Amount,Status\n`;
+            csvContent += `Reservation Number,Guest Name,Address,Email,Contact Number,Room Type,Check-in Date,Check-out Date,Nights,Guests,Special Requests,Total Amount,Status\n`;
             
             // Sort by ID descending
             const sortedReservations = [...reservations].sort((a, b) => b.id - a.id);
@@ -297,13 +505,15 @@ async function downloadDetailedReport() {
                 const row = [
                     reservation.reservationNumber,
                     reservation.guestName,
-                    reservation.email || '',
+                    reservation.address || 'N/A',
+                    reservation.email || 'N/A',
                     reservation.contactNumber,
                     reservation.roomType,
                     formatDate(reservation.checkInDate),
                     formatDate(reservation.checkOutDate),
                     reservation.numberOfNights,
-                    reservation.numberOfGuests || '',
+                    reservation.numberOfGuests || 'N/A',
+                    reservation.specialRequests || 'None',
                     `LKR ${reservation.totalAmount.toFixed(2)}`,
                     reservation.status
                 ];
