@@ -51,6 +51,7 @@ public class ReservationTest {
     @Test
     public void testStandardRoomPricing() {
         reservation.setRoomType(RoomType.STANDARD);
+        reservation.calculateTotalAmount(); // Recalculate after changing room type
         // STANDARD: 5000 per night * 3 nights = 15000
         assertEquals(new BigDecimal("15000.00"), reservation.getTotalAmount());
     }
@@ -58,6 +59,7 @@ public class ReservationTest {
     @Test
     public void testSuiteRoomPricing() {
         reservation.setRoomType(RoomType.SUITE);
+        reservation.calculateTotalAmount(); // Recalculate after changing room type
         // SUITE: 12000 per night * 3 nights = 36000
         assertEquals(new BigDecimal("36000.00"), reservation.getTotalAmount());
     }
@@ -65,6 +67,7 @@ public class ReservationTest {
     @Test
     public void testFamilyRoomPricing() {
         reservation.setRoomType(RoomType.FAMILY);
+        reservation.calculateTotalAmount(); // Recalculate after changing room type
         // FAMILY: 15000 per night * 3 nights = 45000
         assertEquals(new BigDecimal("45000.00"), reservation.getTotalAmount());
     }
@@ -72,6 +75,7 @@ public class ReservationTest {
     @Test
     public void testPresidentialRoomPricing() {
         reservation.setRoomType(RoomType.PRESIDENTIAL);
+        reservation.calculateTotalAmount(); // Recalculate after changing room type
         // PRESIDENTIAL: 25000 per night * 3 nights = 75000
         assertEquals(new BigDecimal("75000.00"), reservation.getTotalAmount());
     }
