@@ -18,7 +18,7 @@ public class HotelReservationApplication {
         SpringApplication.run(HotelReservationApplication.class, args);
         System.out.println("\n==============================================");
         System.out.println("Ocean View Resort Reservation System Started");
-        System.out.println("Access API Documentation: http://localhost:8080/swagger-ui.html");
+        System.out.println("Access API Documentation: http://localhost:8081/swagger-ui.html");
         System.out.println("==============================================\n");
     }
 }
