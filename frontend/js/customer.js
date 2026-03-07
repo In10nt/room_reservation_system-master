@@ -597,12 +597,11 @@ async function handleBookingSubmit(e) {
         console.log('Submitting reservation with role:', role);
         console.log('Token exists:', !!token);
         
-        const response = await fetch('https://jewell-unperilous-gaily.ngrok-free.dev/api/reservations', {
+        const response = await fetch('https://jewell-unperilous-gaily.ngrok-free.dev/api/reservations/public', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'ngrok-skip-browser-warning': 'true',
-                'Authorization': `Bearer ${token}`
+                'ngrok-skip-browser-warning': 'true'
             },
             body: JSON.stringify(formData)
         });
