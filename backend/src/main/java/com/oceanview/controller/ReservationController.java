@@ -25,7 +25,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/reservations")
 @Tag(name = "Reservations", description = "Reservation management endpoints")
-@SecurityRequirement(name = "Bearer Authentication")
 public class ReservationController {
     
     private static final Logger log = LoggerFactory.getLogger(ReservationController.class);
@@ -38,6 +37,7 @@ public class ReservationController {
     
     @PostMapping
     @Operation(summary = "Create new reservation", description = "Create a new room reservation - Receptionist only")
+    @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('RECEPTIONIST')")
     public ResponseEntity<ApiResponse<ReservationResponse>> createReservation(
             @Valid @RequestBody ReservationRequest request) {
@@ -63,6 +63,7 @@ public class ReservationController {
     
     @GetMapping
     @Operation(summary = "Get all reservations", description = "Retrieve all reservations")
+    @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasAnyRole('ADMIN', 'RECEPTIONIST', 'MANAGER')")
     public ResponseEntity<ApiResponse<List<ReservationResponse>>> getAllReservations() {
         log.info("Fetching all reservations");
@@ -75,6 +76,7 @@ public class ReservationController {
     
     @GetMapping("/{reservationNumber}")
     @Operation(summary = "Get reservation by number", description = "Retrieve specific reservation details")
+    @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasAnyRole('ADMIN', 'RECEPTIONIST', 'MANAGER')")
     public ResponseEntity<ApiResponse<ReservationResponse>> getReservation(
             @PathVariable String reservationNumber) {
@@ -89,6 +91,7 @@ public class ReservationController {
     
     @GetMapping("/search")
     @Operation(summary = "Search reservations", description = "Search reservations by guest name")
+    @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasAnyRole('ADMIN', 'RECEPTIONIST', 'MANAGER')")
     public ResponseEntity<ApiResponse<List<ReservationResponse>>> searchReservations(
             @RequestParam String name) {
@@ -103,6 +106,7 @@ public class ReservationController {
     
     @PutMapping("/{reservationNumber}/status")
     @Operation(summary = "Update reservation status", description = "Update the status of a reservation - Receptionist only")
+    @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('RECEPTIONIST')")
     public ResponseEntity<ApiResponse<ReservationResponse>> updateStatus(
             @PathVariable String reservationNumber,
@@ -118,6 +122,7 @@ public class ReservationController {
     
     @PutMapping("/{reservationNumber}/cancel")
     @Operation(summary = "Cancel reservation", description = "Cancel a reservation - Receptionist only")
+    @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('RECEPTIONIST')")
     public ResponseEntity<ApiResponse<ReservationResponse>> cancelReservation(
             @PathVariable String reservationNumber) {
@@ -132,6 +137,7 @@ public class ReservationController {
     
     @PutMapping("/{reservationNumber}")
     @Operation(summary = "Update reservation", description = "Update an existing reservation - Receptionist only")
+    @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('RECEPTIONIST')")
     public ResponseEntity<ApiResponse<ReservationResponse>> updateReservation(
             @PathVariable String reservationNumber,
