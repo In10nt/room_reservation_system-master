@@ -37,10 +37,10 @@ public class ReservationIntegrationTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        // Login to get auth token
+        // Login as receptionist to get auth token (receptionist can create/manage reservations)
         LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setUsername("admin");
-        loginRequest.setPassword("admin123");
+        loginRequest.setUsername("receptionist");
+        loginRequest.setPassword("recep123");
 
         MvcResult result = mockMvc.perform(post("/api/auth/login")
                 .contentType(MediaType.APPLICATION_JSON)
