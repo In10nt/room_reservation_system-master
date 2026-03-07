@@ -76,7 +76,7 @@ public class ReservationControllerTest {
     }
     
     @Test
-    @WithMockUser(roles = "ADMIN")
+    @WithMockUser(roles = "RECEPTIONIST")
     @DisplayName("Should create reservation successfully")
     void testCreateReservation() throws Exception {
         when(reservationService.createReservation(any())).thenReturn(mockResponse);
